@@ -2,9 +2,9 @@
 ## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 
 variable "region" {}
-variable "fingerprint" {}      
-variable "user_ocid" {}        
-variable "private_key_path" {} 
+variable "fingerprint" {}
+variable "user_ocid" {}
+variable "private_key_path" {}
 variable "tenancy_ocid" {}
 variable "compartment_ocid" {}
 
@@ -103,7 +103,7 @@ variable "instance_os" {
 
 variable "linux_os_version" {
   description = "Operating system version for all Linux instances"
-  default = "9"
+  default     = "9"
 }
 
 variable "InstanceShape" {
