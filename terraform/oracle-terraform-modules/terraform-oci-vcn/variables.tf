@@ -99,6 +99,11 @@ variable "vcn_dns_label" {
   }
 }
 
+variable "route_table_id" {
+  description = "a string that will be prepended to all resources"
+  type        = string
+  default     = "none"
+}
 variable "create_label_prefix" {
   description = "whether to create a service gateway. If set to true, creates a service gateway."
   default     = false

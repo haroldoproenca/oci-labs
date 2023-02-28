@@ -8,7 +8,7 @@ data "oci_core_services" "all_oci_services" {
 }
 
 resource "oci_core_service_gateway" "service_gateway" {
-  count = var.create_service_gateway ? 1 : 0
+  count          = var.create_service_gateway ? 1 : 0
   compartment_id = var.compartment_id
   display_name   = var.label_prefix == "none" ? var.service_gateway_display_name : "${var.label_prefix}-${var.service_gateway_display_name}"
 

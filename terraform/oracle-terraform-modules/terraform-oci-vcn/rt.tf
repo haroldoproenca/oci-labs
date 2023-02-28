@@ -1,145 +1,127 @@
-resource "oci_core_route_table" "ig" {
-  compartment_id = var.compartment_id
-  display_name   = var.label_prefix == "none" ? "internet-route" : "${var.label_prefix}-internet-route"
+module "public_subnet_rt" {
+  count  = var.create_public_subnet ? 1 : 0
+  source = "./modules/route-table"
 
-  freeform_tags = var.freeform_tags
-  defined_tags  = var.defined_tags
+  # Oracle Cloud Infrastructure Tenancy and Compartment OCID
+  compartment_ocid = var.compartment_id
+  vcn_id           = oci_core_vcn.vcn.id
 
-  route_rules {
-    # * With this route table, Internet Gateway is always declared as the default gateway
-    destination       = local.anywhere
-    network_entity_id = oci_core_internet_gateway.ig[0].id
-    description       = "Terraformed - Auto-generated at Internet Gateway creation: Internet Gateway as default gateway"
-  }
+  # Deployment Tags + Freeform Tags + Defined Tags
+  route_table_tags = var.freeform_tags
 
-  dynamic "route_rules" {
-    # * filter var.internet_gateway_route_rules for routes with "drg" as destination
-    # * and steer traffic to the attached DRG if available
-    for_each = var.internet_gateway_route_rules != null ? { for k, v in var.internet_gateway_route_rules : k => v
-    if v.network_entity_id == "drg" && var.attached_drg_id != null } : {}
-
-    content {
-      destination       = route_rules.value.destination
-      destination_type  = route_rules.value.destination_type
-      network_entity_id = var.attached_drg_id
-      description       = route_rules.value.description
-    }
-  }
-
-  dynamic "route_rules" {
-    # * filter var.internet_gateway_route_rules for routes with "internet_gateway" as destination
-    # * and steer traffic to the module created Internet Gateway
-    for_each = var.internet_gateway_route_rules != null ? { for k, v in var.internet_gateway_route_rules : k => v
-    if v.network_entity_id == "internet_gateway" } : {}
-
-    content {
-      destination       = route_rules.value.destination
-      destination_type  = route_rules.value.destination_type
-      network_entity_id = oci_core_internet_gateway.ig[0].id
-      description       = route_rules.value.description
-    }
-  }
-
-  dynamic "route_rules" {
-    # * filter var.internet_gateway_route_rules for generic routes
-    # * can take any Named Value : String, Input Variable, Local Value, Data Source, Resource, Module Output ...
-    # * useful for gateways that are not managed by the module
-    for_each = var.internet_gateway_route_rules != null ? { for k, v in var.internet_gateway_route_rules : k => v
-    if contains(["drg", "internet_gateway"], v.network_entity_id) == false } : {}
-
-    content {
-      destination       = route_rules.value.destination
-      destination_type  = route_rules.value.destination_type
-      network_entity_id = route_rules.value.network_entity_id
-      description       = route_rules.value.description
-    }
-  }
-
-  vcn_id = oci_core_vcn.vcn.id
-
-  lifecycle {
-    ignore_changes = [defined_tags, freeform_tags]
-  }
-
-  count = var.create_internet_gateway == true ? 1 : 0
+  route_table_name = "${var.public_subnet_name}_rt"
+  display_name     = "${var.public_subnet_name}_rt"
+  #route_rules        = each.value.route_rules
 }
 
+module "private_app_rt" {
+  count  = var.create_private_app ? 1 : 0
+  source = "./modules/route-table"
 
-resource "oci_core_route_table" "nat" {
-  compartment_id = var.compartment_id
-  display_name   = var.label_prefix == "none" ? "nat-route" : "${var.label_prefix}-nat-route"
+  # Oracle Cloud Infrastructure Tenancy and Compartment OCID
+  compartment_ocid = var.compartment_id
+  vcn_id           = oci_core_vcn.vcn.id
 
-  freeform_tags = var.freeform_tags
-  defined_tags  = var.defined_tags
+  # Deployment Tags + Freeform Tags + Defined Tags
+  route_table_tags = var.freeform_tags
 
-  route_rules {
-    # * With this route table, NAT Gateway is always declared as the default gateway
-    destination       = local.anywhere
-    destination_type  = "CIDR_BLOCK"
-    network_entity_id = oci_core_nat_gateway.nat_gateway[0].id
-    description       = "Terraformed - Auto-generated at NAT Gateway creation: NAT Gateway as default gateway"
-  }
+  route_table_name = "${var.private_app_subnet_name}_rt"
+  display_name     = "${var.private_app_subnet_name}_rt"
+  #route_rules        = each.value.route_rules
+}
 
-  dynamic "route_rules" {
-    # * If Service Gateway is created with the module, automatically creates a rule to handle traffic for "all services" through Service Gateway
-    for_each = var.create_service_gateway == true ? [1] : []
+module "private_db_rt" {
+  count  = var.create_private_db ? 1 : 0
+  source = "./modules/route-table"
 
-    content {
-      destination       = lookup(data.oci_core_services.all_oci_services[0].services[0], "cidr_block")
-      destination_type  = "SERVICE_CIDR_BLOCK"
-      network_entity_id = oci_core_service_gateway.service_gateway[0].id
-      description       = "Terraformed - Auto-generated at Service Gateway creation: All Services in region to Service Gateway"
-    }
-  }
+  # Oracle Cloud Infrastructure Tenancy and Compartment OCID
+  compartment_ocid = var.compartment_id
+  vcn_id           = oci_core_vcn.vcn.id
 
-  dynamic "route_rules" {
-    # * filter var.nat_gateway_route_rules for routes with "drg" as destination
-    # * and steer traffic to the attached DRG if available
-    for_each = var.nat_gateway_route_rules != null ? { for k, v in var.nat_gateway_route_rules : k => v
-    if v.network_entity_id == "drg" && var.attached_drg_id != null } : {}
+  # Deployment Tags + Freeform Tags + Defined Tags
+  route_table_tags = var.freeform_tags
 
-    content {
-      destination       = route_rules.value.destination
-      destination_type  = route_rules.value.destination_type
-      network_entity_id = var.attached_drg_id
-      description       = route_rules.value.description
-    }
-  }
+  route_table_name = "${var.private_db_subnet_name}_rt"
+  display_name     = "${var.private_db_subnet_name}_rt"
+  #route_rules        = each.value.route_rules
+}
 
-  dynamic "route_rules" {
-    # * filter var.nat_gateway_route_rules for routes with "nat_gateway" as destination
-    # * and steer traffic to the module created NAT Gateway
-    for_each = var.nat_gateway_route_rules != null ? { for k, v in var.nat_gateway_route_rules : k => v
-    if v.network_entity_id == "nat_gateway" } : {}
+module "private_exacs_client_rt" {
+  count  = var.create_private_exacs ? 1 : 0
+  source = "./modules/route-table"
 
-    content {
-      destination       = route_rules.value.destination
-      destination_type  = route_rules.value.destination_type
-      network_entity_id = oci_core_nat_gateway.nat_gateway[0].id
-      description       = route_rules.value.description
-    }
-  }
+  # Oracle Cloud Infrastructure Tenancy and Compartment OCID
+  compartment_ocid = var.compartment_id
+  vcn_id           = oci_core_vcn.vcn.id
 
-  dynamic "route_rules" {
-    # * filter var.nat_gateway_route_rules for generic routes
-    # * can take any Named Value : String, Input Variable, Local Value, Data Source, Resource, Module Output ...
-    # * useful for gateways that are not managed by the module
-    for_each = var.nat_gateway_route_rules != null ? { for k, v in var.nat_gateway_route_rules : k => v
-    if contains(["drg", "nat_gateway"], v.network_entity_id) == false } : {}
+  # Deployment Tags + Freeform Tags + Defined Tags
+  route_table_tags = var.freeform_tags
 
-    content {
-      destination       = route_rules.value.destination
-      destination_type  = route_rules.value.destination_type
-      network_entity_id = route_rules.value.network_entity_id
-      description       = route_rules.value.description
-    }
-  }
+  route_table_name = "${var.private_exacs_client_subnet_name}_rt"
+  display_name     = "${var.private_exacs_client_subnet_name}_rt"
+  #route_rules        = each.value.route_rules
+}
 
-  vcn_id = oci_core_vcn.vcn.id
+module "private_exacs_bkp_rt" {
+  count  = var.create_private_exacs ? 1 : 0
+  source = "./modules/route-table"
 
-  lifecycle {
-    ignore_changes = [defined_tags, freeform_tags]
-  }
+  # Oracle Cloud Infrastructure Tenancy and Compartment OCID
+  compartment_ocid = var.compartment_id
+  vcn_id           = oci_core_vcn.vcn.id
 
-  count = var.create_nat_gateway == true ? 1 : 0
+  # Deployment Tags + Freeform Tags + Defined Tags
+  route_table_tags = var.freeform_tags
+
+  route_table_name = "${var.private_exacs_bkp_subnet_name}_rt"
+  display_name     = "${var.private_exacs_bkp_subnet_name}_rt"
+  #route_rules        = each.value.route_rules
+}
+
+module "private_oke_rt" {
+  count  = var.create_private_oke ? 1 : 0
+  source = "./modules/route-table"
+
+  # Oracle Cloud Infrastructure Tenancy and Compartment OCID
+  compartment_ocid = var.compartment_id
+  vcn_id           = oci_core_vcn.vcn.id
+
+  # Deployment Tags + Freeform Tags + Defined Tags
+  route_table_tags = var.freeform_tags
+
+  route_table_name = "${var.private_oke_subnet_name}_rt"
+  display_name     = "${var.private_oke_subnet_name}_rt"
+  #route_rules        = each.value.route_rules
+}
+
+module "private_gen1_rt" {
+  count  = var.create_private_gen1 ? 1 : 0
+  source = "./modules/route-table"
+
+  # Oracle Cloud Infrastructure Tenancy and Compartment OCID
+  compartment_ocid = var.compartment_id
+  vcn_id           = oci_core_vcn.vcn.id
+
+  # Deployment Tags + Freeform Tags + Defined Tags
+  route_table_tags = var.freeform_tags
+
+  route_table_name = "${var.private_gen1_subnet_name}_rt"
+  display_name     = "${var.private_gen1_subnet_name}_rt"
+  #route_rules        = each.value.route_rules
+}
+
+module "private_gen2_rt" {
+  count  = var.create_private_gen2 ? 1 : 0
+  source = "./modules/route-table"
+
+  # Oracle Cloud Infrastructure Tenancy and Compartment OCID
+  compartment_ocid = var.compartment_id
+  vcn_id           = oci_core_vcn.vcn.id
+
+  # Deployment Tags + Freeform Tags + Defined Tags
+  route_table_tags = var.freeform_tags
+
+  route_table_name = "${var.private_gen2_subnet_name}_rt"
+  display_name     = "${var.private_gen2_subnet_name}_rt"
+  #route_rules        = each.value.route_rules
 }
