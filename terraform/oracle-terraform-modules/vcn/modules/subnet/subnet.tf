@@ -6,7 +6,7 @@ locals {
 }
 
 resource "oci_core_subnet" "vcn_subnet" {
-  for_each       = var.subnets
+  for_each       = var.subnet
   cidr_block     = each.value.cidr_block
   compartment_id = var.compartment_id
   vcn_id         = var.vcn_id

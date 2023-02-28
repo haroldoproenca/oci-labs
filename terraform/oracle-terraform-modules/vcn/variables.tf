@@ -103,6 +103,47 @@ variable "vcn_name" {
   }
 }
 
+variable "create_public_subnet" {
+  description = "whether to create a service gateway. If set to true, creates a service gateway."
+  default     = false
+  type        = bool
+}
+
+variable "create_private_app" {
+  description = "whether to create a service gateway. If set to true, creates a service gateway."
+  default     = false
+  type        = bool
+}
+
+variable "create_private_db" {
+  description = "whether to create a service gateway. If set to true, creates a service gateway."
+  default     = false
+  type        = bool
+}
+
+variable "create_private_exacs" {
+  description = "whether to create a service gateway. If set to true, creates a service gateway."
+  default     = false
+  type        = bool
+}
+
+variable "create_private_oke" {
+  description = "whether to create a service gateway. If set to true, creates a service gateway."
+  default     = false
+  type        = bool
+}
+
+variable "create_private_gen1" {
+  description = "whether to create a service gateway. If set to true, creates a service gateway."
+  default     = false
+  type        = bool
+}
+
+variable "create_private_gen2" {
+  description = "whether to create a service gateway. If set to true, creates a service gateway."
+  default     = false
+  type        = bool
+}
 # gateways parameters
 variable "internet_gateway_display_name" {
   description = "(Updatable) Name of Internet Gateway. Does not have to be unique."
@@ -159,11 +200,4 @@ variable "attached_drg_id" {
   description = "the ID of DRG attached to the VCN"
   type = string
   default = null
-}
-
-#subnets
-variable "subnets" {
-  description = "Private or Public subnets in a VCN"
-  type        = any
-  default     = {}
 }

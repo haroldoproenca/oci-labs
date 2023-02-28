@@ -18,10 +18,20 @@ groupings:
     - compartment_id
 
   - title: "VCN Settings"
-    - vcn_cidr
+    variables:
+    - vcn_cidrs
     - vcn_name
+    - vcn_dns_label
+    - lockdown_default_seclist
+    - create_internet_gateway
+    - internet_gateway_display_name
+    - create_nat_gateway
+    - nat_gateway_display_name
+    - create_service_gateway
+    - service_gateway_display_name
 
   - title: "Subnets"
+    variables:
     - create_public_subnet
     - public_subnet_cidr
     - public_subnet_name
@@ -32,8 +42,8 @@ groupings:
     - private_db_subnet_cidr
     - private_db_subnet_name
     - create_private_exacs
-    - private_exacs_server_subnet_cidr
-    - private_exacs_server_subnet_name
+    - private_exacs_client_subnet_cidr
+    - private_exacs_client_subnet_name
     - private_exacs_bkp_subnet_cidr
     - private_exacs_bkp_subnet_name
     - create_private_oke
@@ -45,8 +55,6 @@ groupings:
     - create_private_gen2
     - private_gen2_subnet_cidr
     - private_gen2_subnet_name
-    - vcn_dns_label
-    - lockdown_default_seclist
 
 variables:
   region:
@@ -61,12 +69,19 @@ variables:
     description: The target compartment id where to create all resources
     required: true
 
+  create_label_prefix:
+    type: boolean
+    title: "Create Label Prefix"
+    description: "Check it if is necessary create label prefix"
+    required: true
+
   label_prefix:
     type: string
     title: Label Prefix
     description: a string that will be prepended to all resources
     required: false
-    default: dev
+    default: null
+    visible: create_label_prefix
 
   vcn_cidrs:
     type: list(string)
@@ -80,25 +95,61 @@ variables:
     required: true
     default: TestVCN
 
+  create_internet_gateway:
+    type: boolean
+    title: "Create Internet Gateway"
+    description: "Check it if is necessary create label prefix"
+    required: true
+
+  internet_gateway_display_name:
+    type: string
+    title: Internet Gateway Display Name
+    default: internet-gateway
+    required: false
+    visible: create_internet_gateway
+
+  create_nat_gateway:
+    type: boolean
+    title: "Create NAT Gateway"
+    description: "Check it if is necessary create label prefix"
+    required: true
+
+  nat_gateway_display_name:
+    type: string
+    title: NAT Gateway Display Name
+    default: nat-gateway
+    required: false
+    visible: create_nat_gateway
+
+  create_service_gateway:
+    type: boolean
+    title: "Create Service Gateway"
+    description: "Check it if is necessary create label prefix"
+    required: true
+
+  service_gateway_display_name:
+    type: string
+    title: NAT Gateway Display Name
+    required: false
+    default: service-gateway
+    visible: create_service_gateway
+
   create_public_subnet:
     type: boolean
     title: "Create Public SubNet"
     description: "Check it if is necessary create public subnet"
     required: true
-    default: false
 
   public_subnet_cidr:
     type: string
     title: Public SubNet CIDR
     required: false
-    default: false
     visible: create_public_subnet
   
   public_subnet_name:
     type: string
     title: Public SubNet Name
     required: false
-    default: false
     visible: create_public_subnet
 
   create_private_app:
@@ -106,105 +157,120 @@ variables:
     title: "Create Private App SubNet"
     description: "Check it if is necessary create private app subnet"
     required: true
-    default: false
 
   private_app_subnet_cidr:
     type: string
     title: Private App SubNet CIDR
     required: false
-    default: false
     visible: create_private_app
   
   private_app_subnet_name:
     type: string
     title: Private App SubNet Name
     required: false
-    default: false
     visible: create_private_app
-  
+
+  create_private_db:
+    type: boolean
+    title: "Create Private DB SubNet"
+    description: "Check it if is necessary create private database subnet"
+    required: true
+    
   private_db_subnet_cidr:
     type: string
     title: Private DB SubNet CIDR
     required: false
-    default: "10.0.3.0/24"
-    visible: 
+    visible: create_private_db
   
   private_db_subnet_name:
     type: string
     title: Private DB SubNet Name
     required: false
-    default: "TestDBSN"
-    visible: 
-  
-  private_exacs_server_subnet_cidr:
+    visible: create_private_db
+
+  create_private_exacs:
+    type: boolean
+    title: "Create ExaCS Client and Backup SubNets"
+    description: "Check it if is necessary create ExaCS subnets"
+    required: true
+
+  private_exacs_client_subnet_cidr:
     type: string
-    title: Private ExaCS Server SubNet CIDR
+    title: Private ExaCS client SubNet CIDR
     required: false
-    default: "10.0.4.0/24"
-    visible: 
-  
-  private_exacs_server_subnet_name:
+    visible: create_private_exacs
+
+  private_exacs_client_subnet_name:
     type: string
     title: Private ExaCS Client SubNet Name
     required: false
-    default: "TestExaCSCliSN"
-    visible: 
-  
+    visible: create_private_exacs
+
   private_exacs_bkp_subnet_cidr:
     type: string
     title: Private ExaCS Backup SubNet CIDR
     required: false
-    default: "10.0.5.0/24"
-    visible: 
-  
+    visible: create_private_exacs
+
   private_exacs_bkp_subnet_name:
     type: string
     title: Private ExaCS Backup SubNet Name
     required: false
-    default: "TestExaBkpCliSN"
-    visible: 
-  
+    visible: create_private_exacs
+
+  create_private_oke:
+    type: boolean
+    title: "Create OKE SubNet"
+    description: "Check it if is necessary create dedicated OKE subnet"
+    required: true
+
   private_oke_subnet_cidr:
     type: string
     title: Private OKE SubNet CIDR
     required: false
-    default: "10.0.6.0/24"
-    visible: 
+    visible: create_private_oke
   
   private_oke_subnet_name:
     type: string
     title: Private OKE SubNet Name
     required: false
-    default: "TestOKESN"
-    visible: 
-  
+    visible: create_private_oke
+
+  create_private_gen1:
+    type: boolean
+    title: "Create Generic 1 SubNet"
+    description: "Check it if is necessary create a generic subnet"
+    required: true
+    
   private_gen1_subnet_cidr:
     type: string
     title: Private Generic SubNet Name 1
     required: false
-    default: "10.0.7.0/24"
-    visible: 
-  
+    visible: create_private_gen1
+
   private_gen1_subnet_name:
     type: string
     title: Private Generic SubNet Name 1
     required: false
-    default: "TestGen1SN"
-    visible: 
-  
+    visible: create_private_gen1
+
+  create_private_gen2:
+    type: boolean
+    title: "Create Generic 2 SubNet"
+    description: "Check it if is necessary create a generic subnet"
+    required: true
+
   private_gen2_subnet_cidr:
     type: string
     title: Private Generic SubNet CIDR 2
     required: false
-    default: "10.0.8.0/24"
-    visible: 
+    visible: create_private_gen2
   
   private_gen2_subnet_name:
     type: string
     title: Private Generic SubNet Name 2
     required: false
-    default: "TestGen2SN"
-    visible: 
+    visible: create_private_gen2
   
   vcn_dns_label:
     title: VCN DNS Label
