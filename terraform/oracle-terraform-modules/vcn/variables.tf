@@ -58,6 +58,24 @@ variable "enable_ipv6" {
   default     = false
 }
 
+variable "create_drg" {
+  description = "Whether IPv6 is enabled for the VCN. If enabled, Oracle will assign the VCN a IPv6 /56 CIDR block."
+  type        = bool
+  default     = false
+}
+
+variable "drg_display_name" {
+  description = "Whether IPv6 is enabled for the VCN. If enabled, Oracle will assign the VCN a IPv6 /56 CIDR block."
+  type        = string
+  default     = false
+}
+
+variable "drg_attach_display_name" {
+  description = "Whether IPv6 is enabled for the VCN. If enabled, Oracle will assign the VCN a IPv6 /56 CIDR block."
+  type        = string
+  default     = false
+}
+
 variable "lockdown_default_seclist" {
   description = "whether to remove all default security rules from the VCN Default Security List"
   default     = true
@@ -280,11 +298,11 @@ variable "nat_gateway_route_rules" {
   default     = null
 }
 
-variable "attached_drg_id" {
-  description = "the ID of DRG attached to the VCN"
-  type = string
-  default = null
-}
+# variable "attached_drg_id" {
+#   description = "the ID of DRG attached to the VCN"
+#   type = string
+#   default = null
+# }
 
 # variable "ig_route_id" {
 #   description = "Internet Gateway route table id"

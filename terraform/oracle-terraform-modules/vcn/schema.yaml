@@ -32,32 +32,36 @@ groupings:
     - create_service_gateway
     - service_gateway_display_name
     - enable_ipv6
+    - create_drg
+    - drg_display_name
+    - drg_attach_display_name
 
   - title: "Subnets"
     variables:
     - create_public_subnet
-    - public_subnet_cidr
     - public_subnet_name
+    - public_subnet_cidr
     - create_private_app
-    - private_app_subnet_cidr
     - private_app_subnet_name
+    - private_app_subnet_cidr
     - create_private_db
-    - private_db_subnet_cidr
     - private_db_subnet_name
+    - private_db_subnet_cidr
     - create_private_exacs
-    - private_exacs_client_subnet_cidr
     - private_exacs_client_subnet_name
-    - private_exacs_bkp_subnet_cidr
+    - private_exacs_client_subnet_cidr
     - private_exacs_bkp_subnet_name
+    - private_exacs_bkp_subnet_cidr
     - create_private_oke
-    - private_oke_subnet_cidr
     - private_oke_subnet_name
+    - private_oke_subnet_cidr
     - create_private_gen1
-    - private_gen1_subnet_cidr
     - private_gen1_subnet_name
+    - private_gen1_subnet_cidr
     - create_private_gen2
-    - private_gen2_subnet_cidr
     - private_gen2_subnet_name
+    - private_gen2_subnet_cidr
+
 
 variables:
   region:
@@ -86,10 +90,10 @@ variables:
     default: null
     visible: create_label_prefix
 
-  vcn_cidrs:
-    type: list(string)
+  vcn_cidr:
+    type: string
     title: VCN CIDR
-    default: ["10.0.0.0/16"]
+    default: "10.0.0.0/16"
     required: true
 
   vcn_name:
@@ -143,6 +147,26 @@ variables:
     description: "Check it if is necessary enable Ipv6"
     required: true
 
+  create_drg:
+    type: boolean
+    title: "Create DRG"
+    description: "Check it if is necessary enable Ipv6"
+    required: true
+
+  drg_display_name:
+    type: string
+    title: DRG Display Name
+    required: false
+    default: drg
+    visible: create_drg
+
+  drg_attach_display_name:
+    type: string
+    title: DRG Attachment Display Name
+    required: false
+    default: drg_attach
+    visible: create_drg
+
   create_public_subnet:
     type: boolean
     title: "Create Public SubNet"
@@ -153,12 +177,14 @@ variables:
     type: string
     title: Public SubNet CIDR
     required: false
+    default: "10.0.0.0/24"
     visible: create_public_subnet
   
   public_subnet_name:
     type: string
     title: Public SubNet Name
     required: false
+    default: "TestPubSN"
     visible: create_public_subnet
 
   create_private_app:
@@ -171,12 +197,14 @@ variables:
     type: string
     title: Private App SubNet CIDR
     required: false
+    default: "10.0.1.0/24"
     visible: create_private_app
   
   private_app_subnet_name:
     type: string
     title: Private App SubNet Name
     required: false
+    default: "TestAppSN"
     visible: create_private_app
 
   create_private_db:
@@ -189,12 +217,14 @@ variables:
     type: string
     title: Private DB SubNet CIDR
     required: false
+    default: "10.0.2.0/24"
     visible: create_private_db
   
   private_db_subnet_name:
     type: string
     title: Private DB SubNet Name
     required: false
+    default: "TestDBSN"
     visible: create_private_db
 
   create_private_exacs:
@@ -207,24 +237,28 @@ variables:
     type: string
     title: Private ExaCS client SubNet CIDR
     required: false
+    default: "10.0.3.0/24"
     visible: create_private_exacs
 
   private_exacs_client_subnet_name:
     type: string
     title: Private ExaCS Client SubNet Name
     required: false
+    default: "TestExaCSCliSN"
     visible: create_private_exacs
 
   private_exacs_bkp_subnet_cidr:
     type: string
     title: Private ExaCS Backup SubNet CIDR
     required: false
+    default: "10.0.4.0/24"
     visible: create_private_exacs
 
   private_exacs_bkp_subnet_name:
     type: string
     title: Private ExaCS Backup SubNet Name
     required: false
+    default: "TestExaCSBkpSN"
     visible: create_private_exacs
 
   create_private_oke:
@@ -237,12 +271,14 @@ variables:
     type: string
     title: Private OKE SubNet CIDR
     required: false
+    default: "10.0.5.0/24"
     visible: create_private_oke
   
   private_oke_subnet_name:
     type: string
     title: Private OKE SubNet Name
     required: false
+    default: "TestOKESN"
     visible: create_private_oke
 
   create_private_gen1:
@@ -255,12 +291,14 @@ variables:
     type: string
     title: Private Generic SubNet Name 1
     required: false
+    default: "10.0.6.0/24"
     visible: create_private_gen1
 
   private_gen1_subnet_name:
     type: string
     title: Private Generic SubNet Name 1
     required: false
+    default: "TestGen1SN"
     visible: create_private_gen1
 
   create_private_gen2:
@@ -273,12 +311,14 @@ variables:
     type: string
     title: Private Generic SubNet CIDR 2
     required: false
+    default: "10.0.7.0/24"
     visible: create_private_gen2
   
   private_gen2_subnet_name:
     type: string
     title: Private Generic SubNet Name 2
     required: false
+    default: "TestGen2SN"
     visible: create_private_gen2
   
   vcn_dns_label:
@@ -292,12 +332,6 @@ variables:
     type: string
     required: false
     default: true
-
-  attached_drg_id:
-    title: DRG OCID to attach to the VCN
-    type: string
-    required: false
-    default: null
 
   freeform_tags:
     type: map
