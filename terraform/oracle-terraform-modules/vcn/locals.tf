@@ -1,6 +1,5 @@
-# Copyright (c) 2019, 2020 Oracle Corporation and/or affiliates.  All rights reserved.
-# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
-
+#Module for Subnet
 locals {
   anywhere = "0.0.0.0/0"
+  dhcp_default_options = data.oci_core_dhcp_options.dhcp_options.options.0.id
 }

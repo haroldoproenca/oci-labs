@@ -22,6 +22,8 @@ groupings:
     - vcn_cidrs
     - vcn_name
     - vcn_dns_label
+    - create_label_prefix
+    - label_prefix
     - lockdown_default_seclist
     - create_internet_gateway
     - internet_gateway_display_name
@@ -29,6 +31,7 @@ groupings:
     - nat_gateway_display_name
     - create_service_gateway
     - service_gateway_display_name
+    - enable_ipv6
 
   - title: "Subnets"
     variables:
@@ -133,6 +136,12 @@ variables:
     required: false
     default: service-gateway
     visible: create_service_gateway
+
+  enable_ipv6:
+    type: boolean
+    title: "Enable IPV6"
+    description: "Check it if is necessary enable Ipv6"
+    required: true
 
   create_public_subnet:
     type: boolean

@@ -18,12 +18,6 @@ variable "compartment_id" {
   # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc
 }
 
-variable "label_prefix" {
-  description = "a string that will be prepended to all resources"
-  type        = string
-  default     = "none"
-}
-
 variable "freeform_tags" {
   description = "simple key-value pairs to tag the created resources using freeform OCI Free-form tags."
   type        = map(any)
@@ -70,12 +64,6 @@ variable "lockdown_default_seclist" {
   type        = bool
 }
 
-variable "nat_gateway_public_ip_id" {
-  description = "OCID of reserved IP address for NAT gateway. The reserved public IP address needs to be manually created."
-  default     = "none"
-  type        = string
-}
-
 variable "vcn_cidrs" {
   description = "The list of IPv4 CIDR blocks the VCN will use."
   default     = ["10.0.0.0/16"]
@@ -93,6 +81,17 @@ variable "vcn_dns_label" {
   }
 }
 
+variable "create_label_prefix" {
+  description = "whether to create a service gateway. If set to true, creates a service gateway."
+  default     = false
+  type        = bool
+}
+
+variable "label_prefix" {
+  description = "a string that will be prepended to all resources"
+  type        = string
+  default     = "none"
+}
 variable "vcn_name" {
   description = "user-friendly name of to use for the vcn to be appended to the label_prefix"
   type        = string
@@ -109,22 +108,79 @@ variable "create_public_subnet" {
   type        = bool
 }
 
+variable "public_subnet_cidr" {
+  description = "CIDR Subnet"
+  default     = false
+  type        = string
+}
+
+variable "public_subnet_name" {
+  description = "Name Subnet"
+  default     = false
+  type        = string
+}
+
 variable "create_private_app" {
   description = "whether to create a service gateway. If set to true, creates a service gateway."
   default     = false
   type        = bool
 }
 
+variable "private_app_subnet_cidr" {
+  description = "CIDR Subnet"
+  default     = false
+  type        = string
+}
+
+variable "private_app_subnet_name" {
+  description = "Name Subnet"
+  default     = false
+  type        = string
+}
 variable "create_private_db" {
   description = "whether to create a service gateway. If set to true, creates a service gateway."
   default     = false
   type        = bool
 }
+variable "private_db_subnet_cidr" {
+  description = "CIDR Subnet"
+  default     = false
+  type        = string
+}
 
+variable "private_db_subnet_name" {
+  description = "Name Subnet"
+  default     = false
+  type        = string
+}
 variable "create_private_exacs" {
   description = "whether to create a service gateway. If set to true, creates a service gateway."
   default     = false
   type        = bool
+}
+
+variable "private_exacs_client_subnet_cidr" {
+  description = "CIDR Subnet"
+  default     = false
+  type        = string
+}
+
+variable "private_exacs_client_subnet_name" {
+  description = "Name Subnet"
+  default     = false
+  type        = string
+}
+
+variable "private_exacs_bkp_subnet_cidr" {
+  description = "CIDR Subnet"
+  default     = false
+  type        = string
+}
+
+variable "private_exacs_bkp_subnet_name" {
+  description = "Name Subnet"
+  default     = false
+  type        = string
 }
 
 variable "create_private_oke" {
@@ -133,16 +189,50 @@ variable "create_private_oke" {
   type        = bool
 }
 
+variable "private_oke_subnet_cidr" {
+  description = "CIDR Subnet"
+  default     = false
+  type        = string
+}
+
+variable "private_oke_subnet_name" {
+  description = "Name Subnet"
+  default     = false
+  type        = string
+}
 variable "create_private_gen1" {
   description = "whether to create a service gateway. If set to true, creates a service gateway."
   default     = false
   type        = bool
 }
 
+variable "private_gen1_subnet_cidr" {
+  description = "CIDR Subnet"
+  default     = false
+  type        = string
+}
+
+variable "private_gen1_subnet_name" {
+  description = "Name Subnet"
+  default     = false
+  type        = string
+}
 variable "create_private_gen2" {
   description = "whether to create a service gateway. If set to true, creates a service gateway."
   default     = false
   type        = bool
+}
+
+variable "private_gen2_subnet_cidr" {
+  description = "CIDR Subnet"
+  default     = false
+  type        = string
+}
+
+variable "private_gen2_subnet_name" {
+  description = "Name Subnet"
+  default     = false
+  type        = string
 }
 # gateways parameters
 variable "internet_gateway_display_name" {
@@ -154,12 +244,6 @@ variable "internet_gateway_display_name" {
     condition     = length(var.internet_gateway_display_name) > 0
     error_message = "The internet_gateway_display_name value cannot be an empty string."
   }
-}
-
-variable "local_peering_gateways" {
-  description = "Map of Local Peering Gateways to attach to the VCN."
-  type        = map(any)
-  default     = null
 }
 
 variable "nat_gateway_display_name" {
@@ -201,3 +285,13 @@ variable "attached_drg_id" {
   type = string
   default = null
 }
+
+# variable "ig_route_id" {
+#   description = "Internet Gateway route table id"
+#   type        = string
+# }
+
+# variable "nat_route_id" {
+#   description = "NAT Gateway route table id"
+#   type        = string
+# }
