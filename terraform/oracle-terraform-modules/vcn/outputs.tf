@@ -46,11 +46,6 @@ output "ig_route_all_attributes" {
   value       = { for k, v in oci_core_route_table.ig : k => v }
 }
 
-output "lpg_all_attributes" {
-  description = "all attributes of created lpg"
-  value       = { for k, v in oci_core_local_peering_gateway.lpg : k => v }
-}
-
 output "nat_gateway_all_attributes" {
   description = "all attributes of created nat gateway"
   value       = { for k, v in oci_core_nat_gateway.nat_gateway : k => v }
@@ -71,18 +66,3 @@ output "vcn_all_attributes" {
   value       = { for k, v in oci_core_vcn.vcn : k => v }
 }
 
-# subnet
-output "subnet_id" {
-  value = try(module.subnet[0].subnet_id, null)
-}
-
-output "subnet_all_attributes" {
-  value = try(module.subnet[0].all_attributes, null)
-}
-
-output "subnet_id" {
-  value = { for v in oci_core_subnet.vcn_subnet : v.display_name => v.id }
-}
-output "all_attributes" {
-  value = { for k, v in oci_core_subnet.vcn_subnet : k => v }
-}

@@ -128,7 +128,7 @@ resource "oci_core_nat_gateway" "nat_gateway" {
   freeform_tags = var.freeform_tags
   defined_tags = var.defined_tags
 
-  public_ip_id = var.nat_gateway_public_ip_id != "none" ? var.nat_gateway_public_ip_id : null
+  #public_ip_id = var.nat_gateway_public_ip_id != "none" ? var.nat_gateway_public_ip_id : null
 
   vcn_id = oci_core_vcn.vcn.id
 
@@ -216,29 +216,4 @@ resource "oci_core_route_table" "nat" {
   }
 
   count = var.create_nat_gateway == true ? 1 : 0
-}
-
-
-
-#############################
-# Local Peering Gateway (LPG)
-#############################
-
-resource "oci_core_local_peering_gateway" "lpg" {
-  for_each       = var.local_peering_gateways != null ? var.local_peering_gateways : {}
-  compartment_id = var.compartment_id
-  display_name   = var.label_prefix == "none" ? each.key : "${var.label_prefix}-${each.key}"
-
-  freeform_tags = var.freeform_tags
-  defined_tags = var.defined_tags
-
-  vcn_id = oci_core_vcn.vcn.id
-
-  #Optional
-  peer_id        = can(each.value.peer_id) == false ? null : each.value.peer_id
-  route_table_id = can(each.value.route_table_id) == false ? null : each.value.route_table_id
-
-  lifecycle {
-    ignore_changes = [defined_tags, freeform_tags]
-  }
 }

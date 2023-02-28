@@ -19,7 +19,7 @@ groupings:
 
   - title: "VCN Settings"
     variables:
-    - vcn_cidrs
+    - vcn_cidr
     - vcn_name
     - vcn_dns_label
     - create_label_prefix
