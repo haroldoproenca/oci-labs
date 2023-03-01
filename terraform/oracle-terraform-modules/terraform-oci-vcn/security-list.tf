@@ -5,15 +5,7 @@ module "public_subnet_sl" {
   compartment_ocid = var.compartment_id
   vcn_id           = oci_core_vcn.vcn.id
 
-  # Deployment Tags + Freeform Tags + Defined Tags
-  security_list_tags = var.freeform_tags
-
-  # Security List attributes
-  create_security_list   = true
-  security_list_name     = "${var.public_subnet_name}_sl"
-  display_name           = "${var.public_subnet_name}_sl"
-#   egress_security_rules  = local.security_lists.egress_security_rules
-#   ingress_security_rules = local.security_lists.ingress_security_rules
+  display_name = "${var.public_subnet_name}_sl"
 }
 
 module "private_app_sl" {
@@ -23,15 +15,7 @@ module "private_app_sl" {
   compartment_ocid = var.compartment_id
   vcn_id           = oci_core_vcn.vcn.id
 
-  # Deployment Tags + Freeform Tags + Defined Tags
-  security_list_tags = var.freeform_tags
-
-  # Security List attributes
-  create_security_list   = true
-  security_list_name     = "${var.private_app_subnet_name}_sl"
-  display_name           = "${var.private_app_subnet_name}_sl"
-#   egress_security_rules  = local.security_lists.egress_security_rules
-#   ingress_security_rules = local.security_lists.ingress_security_rules
+  display_name = "${var.private_app_subnet_name}_sl"
 }
 
 module "private_db_sl" {
@@ -41,15 +25,7 @@ module "private_db_sl" {
   compartment_ocid = var.compartment_id
   vcn_id           = oci_core_vcn.vcn.id
 
-  # Deployment Tags + Freeform Tags + Defined Tags
-  security_list_tags = var.freeform_tags
-
-  # Security List attributes
-  create_security_list   = true
-  security_list_name     = "${var.private_db_subnet_name}_sl"
-  display_name           = "${var.private_db_subnet_name}_sl"
-#   egress_security_rules  = local.security_lists.egress_security_rules
-#   ingress_security_rules = local.security_lists.ingress_security_rules
+  display_name = "${var.private_db_subnet_name}_sl"
 }
 
 module "private_exacs_client_sl" {
@@ -59,15 +35,7 @@ module "private_exacs_client_sl" {
   compartment_ocid = var.compartment_id
   vcn_id           = oci_core_vcn.vcn.id
 
-  # Deployment Tags + Freeform Tags + Defined Tags
-  security_list_tags = var.freeform_tags
-
-  # Security List attributes
-  create_security_list   = true
-  security_list_name     = "${var.private_exacs_client_subnet_name}_sl"
-  display_name           = "${var.private_exacs_client_subnet_name}_sl"
-#   egress_security_rules  = local.security_lists.egress_security_rules
-#   ingress_security_rules = local.security_lists.ingress_security_rules
+  display_name = "${var.private_exacs_client_subnet_name}_sl"
 }
 
 module "private_exacs_bkp_sl" {
@@ -77,15 +45,7 @@ module "private_exacs_bkp_sl" {
   compartment_ocid = var.compartment_id
   vcn_id           = oci_core_vcn.vcn.id
 
-  # Deployment Tags + Freeform Tags + Defined Tags
-  security_list_tags = var.freeform_tags
-
-  # Security List attributes
-  create_security_list   = true
-  security_list_name     = "${var.private_exacs_bkp_subnet_name}_sl"
-  display_name           = "${var.private_exacs_bkp_subnet_name}_sl"
-#   egress_security_rules  = local.security_lists.egress_security_rules
-#   ingress_security_rules = local.security_lists.ingress_security_rules
+  display_name = "${var.private_exacs_bkp_subnet_name}_sl"
 }
 
 module "private_oke_sl" {
@@ -95,15 +55,7 @@ module "private_oke_sl" {
   compartment_ocid = var.compartment_id
   vcn_id           = oci_core_vcn.vcn.id
 
-  # Deployment Tags + Freeform Tags + Defined Tags
-  security_list_tags = var.freeform_tags
-
-  # Security List attributes
-  create_security_list   = true
-  security_list_name     = "${var.private_oke_subnet_name}_sl"
-  display_name           = "${var.private_oke_subnet_name}_sl"
-#   egress_security_rules  = local.security_lists.egress_security_rules
-#   ingress_security_rules = local.security_lists.ingress_security_rules
+  display_name = "${var.private_oke_subnet_name}_sl"
 }
 
 module "private_gen1_sl" {
@@ -113,15 +65,7 @@ module "private_gen1_sl" {
   compartment_ocid = var.compartment_id
   vcn_id           = oci_core_vcn.vcn.id
 
-  # Deployment Tags + Freeform Tags + Defined Tags
-  security_list_tags = var.freeform_tags
-
-  # Security List attributes
-  create_security_list   = true
-  security_list_name     = "${var.private_gen1_subnet_name}_sl"
-  display_name           = "${var.private_gen1_subnet_name}_sl"
-#   egress_security_rules  = local.security_lists.egress_security_rules
-#   ingress_security_rules = local.security_lists.ingress_security_rules
+  display_name = "${var.private_gen1_subnet_name}_sl"
 }
 
 module "private_gen2_sl" {
@@ -131,16 +75,6 @@ module "private_gen2_sl" {
   compartment_ocid = var.compartment_id
   vcn_id           = oci_core_vcn.vcn.id
 
-  # Deployment Tags + Freeform Tags + Defined Tags
-  security_list_tags = var.freeform_tags
-
-  # Security List attributes
-  create_security_list   = true
-  security_list_name     = "${var.private_gen2_subnet_name}_sl"
-  display_name           = "${var.private_gen2_subnet_name}_sl"
-#   egress_security_rules  = local.security_lists.egress_security_rules
-#   ingress_security_rules = local.security_lists.ingress_security_rules
+  display_name = "${var.private_gen2_subnet_name}_sl"
 }
-
-
 

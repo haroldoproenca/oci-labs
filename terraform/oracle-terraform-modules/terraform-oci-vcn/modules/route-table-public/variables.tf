@@ -13,18 +13,15 @@ variable "display_name" {
   default     = null
   description = "Display name for the subnet."
 }
-variable "route_rules" {
-  type = list(object({
-    description       = string
-    destination       = string
-    destination_type  = string
-    network_entity_id = string
-  }))
-  default = []
-}
+
 # Deployment Details + Freeform Tags + Defined Tags
 variable "route_table_tags" {
   description = "Tags to be added to the route table resources"
+}
+
+variable "internet_gateway_id" {
+  description = "Tags to be added to the route table resources"
+  type= string
 }
 
 

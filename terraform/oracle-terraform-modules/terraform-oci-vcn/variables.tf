@@ -303,18 +303,17 @@ variable "nat_gateway_route_rules" {
   default     = null
 }
 
-# variable "attached_drg_id" {
-#   description = "the ID of DRG attached to the VCN"
-#   type = string
-#   default = null
-# }
+variable "internet_gateway_enabled" {
+  default     = true
+  description = "Whether the gateway is enabled upon creation."
+}
 
-# variable "ig_route_id" {
-#   description = "Internet Gateway route table id"
-#   type        = string
-# }
+variable "nat_gateway_block_traffic" {
+  default     = false
+  description = "Whether the NAT gateway blocks traffic through it."
+}
 
-# variable "nat_route_id" {
-#   description = "NAT Gateway route table id"
-#   type        = string
-# }
+variable "nat_gateway_public_ip_id" {
+  default     = null
+  description = "The OCID of the public IP the NAT gateway will use."
+}

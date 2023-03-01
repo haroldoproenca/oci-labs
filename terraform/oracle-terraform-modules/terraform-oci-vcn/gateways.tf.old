@@ -1,0 +1,39 @@
+# module "igw" {
+#   source = "./modules/internet-gateway"
+#   count  = var.create_internet_gateway ? 1 : 0
+
+#   compartment_ocid = var.compartment_id
+#   vcn_id           = oci_core_vcn.vcn.id
+
+#   gateways_tags = var.freeform_tags
+
+#   internet_gateway_display_name = var.label_prefix == "none" ? var.internet_gateway_display_name : "${var.label_prefix}-${var.internet_gateway_display_name}"
+#   internet_gateway_enabled      = true
+# }
+
+# module "ngw" {
+#   source = "./modules/nat-gateway"
+#   count  = var.create_nat_gateway ? 1 : 0
+
+#   compartment_ocid = var.compartment_id
+#   vcn_id           = oci_core_vcn.vcn.id
+
+#   gateways_tags = var.freeform_tags
+
+#   nat_gateway_display_name = var.label_prefix == "none" ? var.nat_gateway_display_name : "${var.label_prefix}-${var.nat_gateway_display_name}"
+#   nat_gateway_public_ip_id = null
+
+# }
+
+# module "sgw" {
+#   source = "./modules/service-gateway"
+#   count  = var.create_service_gateway ? 1 : 0
+
+#   compartment_ocid = var.compartment_id
+#   vcn_id           = oci_core_vcn.vcn.id
+
+#   gateways_tags = var.freeform_tags
+
+#   service_gateway_display_name = var.label_prefix == "none" ? var.service_gateway_display_name : "${var.label_prefix}-${var.service_gateway_display_name}"
+# }
+
