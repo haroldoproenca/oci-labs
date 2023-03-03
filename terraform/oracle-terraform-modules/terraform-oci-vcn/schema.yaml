@@ -1,0 +1,334 @@
+# Title shown in Application Information tab.
+title: VCN Creation Form
+# Sub Title shown in Application Information tab.
+description: This is used to create VCN , based on natura Template
+schemaVersion: 1.1.0
+version: "20190304"
+
+# URL of Logo Icon used on Application Information tab. Logo must be 130x130 pixels.
+# (Optional)
+logoUrl: https://www.naturaeco.com/wp-content/themes/mziq_naturaeco_inst/img/naturaandco.svg
+
+
+locale: "en"
+groupings:
+  - title: "Cloud Configuration"
+    variables:
+    - region
+    - compartment_id
+
+  - title: "VCN Settings"
+    variables:
+    - vcn_cidr
+    - vcn_name
+    - vcn_dns_label
+    - create_label_prefix
+    - label_prefix
+    - create_internet_gateway
+    - internet_gateway_display_name
+    - create_nat_gateway
+    - nat_gateway_display_name
+    - create_service_gateway
+    - service_gateway_display_name
+    - enable_ipv6
+    - create_drg
+    - drg_display_name
+    - drg_attach_display_name
+
+  - title: "Subnets"
+    variables:
+    - create_public_subnet
+    - public_subnet_name
+    - public_subnet_cidr
+    - create_private_app
+    - private_app_subnet_name
+    - private_app_subnet_cidr
+    - create_private_db
+    - private_db_subnet_name
+    - private_db_subnet_cidr
+    - create_private_exacs
+    - private_exacs_client_subnet_name
+    - private_exacs_client_subnet_cidr
+    - private_exacs_bkp_subnet_name
+    - private_exacs_bkp_subnet_cidr
+    - create_private_oke
+    - private_oke_subnet_name
+    - private_oke_subnet_cidr
+    - create_private_gen1
+    - private_gen1_subnet_name
+    - private_gen1_subnet_cidr
+    - create_private_gen2
+    - private_gen2_subnet_name
+    - private_gen2_subnet_cidr
+
+
+variables:
+  region:
+    type: oci:identity:region:name
+    title: Region
+    description: The OCI region where resources will be created
+    required: true
+
+  compartment_id:
+    type: oci:identity:compartment:id
+    title: Target Compartment
+    description: The target compartment id where to create all resources
+    required: true
+
+  create_label_prefix:
+    type: boolean
+    title: "Create Label Prefix"
+    description: "Check it if is necessary create label prefix"
+    required: true
+
+  label_prefix:
+    type: string
+    title: Label Prefix
+    description: a string that will be prepended to all resources
+    required: false
+    default: null
+    visible: create_label_prefix
+
+  vcn_cidr:
+    type: string
+    title: VCN CIDR
+    default: "10.0.0.0/16"
+    required: true
+
+  vcn_name:
+    type: string
+    title: VCN Name
+    required: true
+    default: TestVCN
+
+  create_internet_gateway:
+    type: boolean
+    title: "Create Internet Gateway"
+    description: "Check it if is necessary create label prefix"
+    required: true
+    default: true
+
+  internet_gateway_display_name:
+    type: string
+    title: Internet Gateway Display Name
+    default: internet-gateway
+    required: false
+    visible: create_internet_gateway
+
+  create_nat_gateway:
+    type: boolean
+    title: "Create NAT Gateway"
+    description: "Check it if is necessary create label prefix"
+    required: true
+    default: true
+
+  nat_gateway_display_name:
+    type: string
+    title: NAT Gateway Display Name
+    default: nat-gateway
+    required: false
+    visible: create_nat_gateway
+
+  create_service_gateway:
+    type: boolean
+    title: "Create Service Gateway"
+    description: "Check it if is necessary create label prefix"
+    required: true
+    default: true
+
+  service_gateway_display_name:
+    type: string
+    title: NAT Gateway Display Name
+    required: false
+    default: service-gateway
+    visible: create_service_gateway
+
+  enable_ipv6:
+    type: boolean
+    title: "Enable IPV6"
+    description: "Check it if is necessary enable Ipv6"
+    required: true
+
+  create_drg:
+    type: boolean
+    title: "Create DRG"
+    description: "Check it if is necessary enable Ipv6"
+    required: true
+
+  drg_display_name:
+    type: string
+    title: DRG Display Name
+    required: false
+    default: drg
+    visible: create_drg
+
+  drg_attach_display_name:
+    type: string
+    title: DRG Attachment Display Name
+    required: false
+    default: drg_attach
+    visible: create_drg
+
+  create_public_subnet:
+    type: boolean
+    title: "Create Public SubNet"
+    description: "Check it if is necessary create public subnet"
+    required: true
+
+  public_subnet_cidr:
+    type: string
+    title: Public SubNet CIDR
+    required: false
+    default: "10.0.0.0/24"
+    visible: create_public_subnet
+  
+  public_subnet_name:
+    type: string
+    title: Public SubNet Name
+    required: false
+    default: "TestPubSN"
+    visible: create_public_subnet
+
+  create_private_app:
+    type: boolean
+    title: "Create Private App SubNet"
+    description: "Check it if is necessary create private app subnet"
+    required: true
+
+  private_app_subnet_cidr:
+    type: string
+    title: Private App SubNet CIDR
+    required: false
+    default: "10.0.1.0/24"
+    visible: create_private_app
+  
+  private_app_subnet_name:
+    type: string
+    title: Private App SubNet Name
+    required: false
+    default: "TestAppSN"
+    visible: create_private_app
+
+  create_private_db:
+    type: boolean
+    title: "Create Private DB SubNet"
+    description: "Check it if is necessary create private database subnet"
+    required: true
+    
+  private_db_subnet_cidr:
+    type: string
+    title: Private DB SubNet CIDR
+    required: false
+    default: "10.0.2.0/24"
+    visible: create_private_db
+  
+  private_db_subnet_name:
+    type: string
+    title: Private DB SubNet Name
+    required: false
+    default: "TestDBSN"
+    visible: create_private_db
+
+  create_private_exacs:
+    type: boolean
+    title: "Create ExaCS Client and Backup SubNets"
+    description: "Check it if is necessary create ExaCS subnets"
+    required: true
+
+  private_exacs_client_subnet_cidr:
+    type: string
+    title: Private ExaCS client SubNet CIDR
+    required: false
+    default: "10.0.3.0/24"
+    visible: create_private_exacs
+
+  private_exacs_client_subnet_name:
+    type: string
+    title: Private ExaCS Client SubNet Name
+    required: false
+    default: "TestExaCSCliSN"
+    visible: create_private_exacs
+
+  private_exacs_bkp_subnet_cidr:
+    type: string
+    title: Private ExaCS Backup SubNet CIDR
+    required: false
+    default: "10.0.4.0/24"
+    visible: create_private_exacs
+
+  private_exacs_bkp_subnet_name:
+    type: string
+    title: Private ExaCS Backup SubNet Name
+    required: false
+    default: "TestExaCSBkpSN"
+    visible: create_private_exacs
+
+  create_private_oke:
+    type: boolean
+    title: "Create OKE SubNet"
+    description: "Check it if is necessary create dedicated OKE subnet"
+    required: true
+
+  private_oke_subnet_cidr:
+    type: string
+    title: Private OKE SubNet CIDR
+    required: false
+    default: "10.0.5.0/24"
+    visible: create_private_oke
+  
+  private_oke_subnet_name:
+    type: string
+    title: Private OKE SubNet Name
+    required: false
+    default: "TestOKESN"
+    visible: create_private_oke
+
+  create_private_gen1:
+    type: boolean
+    title: "Create Generic 1 SubNet"
+    description: "Check it if is necessary create a generic subnet"
+    required: true
+    
+  private_gen1_subnet_cidr:
+    type: string
+    title: Private Generic SubNet Name 1
+    required: false
+    default: "10.0.6.0/24"
+    visible: create_private_gen1
+
+  private_gen1_subnet_name:
+    type: string
+    title: Private Generic SubNet Name 1
+    required: false
+    default: "TestGen1SN"
+    visible: create_private_gen1
+
+  create_private_gen2:
+    type: boolean
+    title: "Create Generic 2 SubNet"
+    description: "Check it if is necessary create a generic subnet"
+    required: true
+
+  private_gen2_subnet_cidr:
+    type: string
+    title: Private Generic SubNet CIDR 2
+    required: false
+    default: "10.0.7.0/24"
+    visible: create_private_gen2
+  
+  private_gen2_subnet_name:
+    type: string
+    title: Private Generic SubNet Name 2
+    required: false
+    default: "TestGen2SN"
+    visible: create_private_gen2
+  
+  vcn_dns_label:
+    title: VCN DNS Label
+    type: string
+    required: false
+    default: templatevcn
+
+  freeform_tags:
+    type: map
+    visible: false
