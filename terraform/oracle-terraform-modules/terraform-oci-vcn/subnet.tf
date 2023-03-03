@@ -15,6 +15,8 @@ module "public_subnet" {
   freeform_tags = var.freeform_tags
 }
 
+
+
 module "private_app" {
   count      = var.create_private_app ? 1 : 0
   source     = "./modules/subnet"

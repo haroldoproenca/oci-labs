@@ -76,11 +76,11 @@ variable "drg_attach_display_name" {
   default     = false
 }
 
-variable "lockdown_default_seclist" {
-  description = "whether to remove all default security rules from the VCN Default Security List"
-  default     = true
-  type        = bool
-}
+# variable "lockdown_default_seclist" {
+#   description = "whether to remove all default security rules from the VCN Default Security List"
+#   default     = true
+#   type        = bool
+# }
 
 variable "vcn_cidr" {
   description = "The list of IPv4 CIDR blocks the VCN will use."
@@ -99,11 +99,11 @@ variable "vcn_dns_label" {
   }
 }
 
-variable "route_table_id" {
-  description = "a string that will be prepended to all resources"
-  type        = string
-  default     = "none"
-}
+# variable "route_table_id" {
+#   description = "a string that will be prepended to all resources"
+#   type        = string
+#   default     = "none"
+# }
 variable "create_label_prefix" {
   description = "whether to create a service gateway. If set to true, creates a service gateway."
   default     = false
@@ -291,29 +291,29 @@ variable "service_gateway_display_name" {
   }
 }
 
-variable "internet_gateway_route_rules" {
-  description = "(Updatable) List of routing rules to add to Internet Gateway Route Table"
-  type        = list(map(string))
-  default     = null
-}
+# variable "internet_gateway_route_rules" {
+#   description = "(Updatable) List of routing rules to add to Internet Gateway Route Table"
+#   type        = list(map(string))
+#   default     = null
+# }
 
-variable "nat_gateway_route_rules" {
-  description = "(Updatable) list of routing rules to add to NAT Gateway Route Table"
-  type        = list(map(string))
-  default     = null
-}
+# variable "nat_gateway_route_rules" {
+#   description = "(Updatable) list of routing rules to add to NAT Gateway Route Table"
+#   type        = list(map(string))
+#   default     = null
+# }
 
-variable "internet_gateway_enabled" {
-  default     = true
-  description = "Whether the gateway is enabled upon creation."
-}
+# variable "internet_gateway_enabled" {
+#   default     = true
+#   description = "Whether the gateway is enabled upon creation."
+# }
 
-variable "nat_gateway_block_traffic" {
-  default     = false
-  description = "Whether the NAT gateway blocks traffic through it."
-}
+# variable "nat_gateway_block_traffic" {
+#   default     = false
+#   description = "Whether the NAT gateway blocks traffic through it."
+# }
 
-variable "nat_gateway_public_ip_id" {
-  default     = null
-  description = "The OCID of the public IP the NAT gateway will use."
-}
+# variable "nat_gateway_public_ip_id" {
+#   default     = null
+#   description = "The OCID of the public IP the NAT gateway will use."
+# }

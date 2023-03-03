@@ -24,7 +24,6 @@ groupings:
     - vcn_dns_label
     - create_label_prefix
     - label_prefix
-    - lockdown_default_seclist
     - create_internet_gateway
     - internet_gateway_display_name
     - create_nat_gateway
@@ -107,6 +106,7 @@ variables:
     title: "Create Internet Gateway"
     description: "Check it if is necessary create label prefix"
     required: true
+    default: true
 
   internet_gateway_display_name:
     type: string
@@ -120,6 +120,7 @@ variables:
     title: "Create NAT Gateway"
     description: "Check it if is necessary create label prefix"
     required: true
+    default: true
 
   nat_gateway_display_name:
     type: string
@@ -133,6 +134,7 @@ variables:
     title: "Create Service Gateway"
     description: "Check it if is necessary create label prefix"
     required: true
+    default: true
 
   service_gateway_display_name:
     type: string
@@ -326,12 +328,6 @@ variables:
     type: string
     required: false
     default: templatevcn
-
-  lockdown_default_seclist:
-    title: Enable VCN Default Security List Lockdown
-    type: string
-    required: false
-    default: true
 
   freeform_tags:
     type: map
