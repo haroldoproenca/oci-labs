@@ -1,8 +1,8 @@
 resource "oci_core_vcn" "vcn" {
   cidr_block     = var.vcn_cidr
   compartment_id = var.compartment_id
-  display_name   = var.label_prefix == "none" ? var.vcn_name : "${var.label_prefix}-${var.vcn_name}"
-  dns_label      = var.vcn_dns_label
+  display_name   = var.display_name
+  dns_label      = var.dns_label
   is_ipv6enabled = var.enable_ipv6
 
   freeform_tags = var.freeform_tags
