@@ -2,7 +2,7 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at http://oss.oracle.com/licenses/upl.
 # 
 
-variable "compartment_ocid" {}
+variable "compartment_id" {}
 variable "oci_all_services" {}
 variable "vcn_id" {}
 variable "route_table_name" {}
@@ -38,9 +38,25 @@ variable "freeform_tags" {
 
 
 variable "nat_gateway_id" {
+    type = string
   description = "Tags to be added to the route table resources"
+  default = "empty_nat_gateway_id"
 }
 
 variable "service_gateway_id" {
+  type = string
   description = "Tags to be added to the route table resources"
+  default = "empty_service_gateway_id"
 }
+
+variable "nat_gateway_display_name" {
+  default     = "NAT Gateway"
+  description = "Display name for the NAT gateway"
+}
+
+variable "service_gateway_display_name" {
+  default     = "Internet Gateway"
+  description = "Display name for the internet gateway"
+}
+
+

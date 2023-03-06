@@ -24,12 +24,6 @@ groupings:
     - vcn_dns_label
     - create_label_prefix
     - label_prefix
-    - create_internet_gateway
-    - internet_gateway_display_name
-    - create_nat_gateway
-    - nat_gateway_display_name
-    - create_service_gateway
-    - service_gateway_display_name
     - enable_ipv6
     - create_drg
     - drg_display_name
@@ -60,6 +54,10 @@ groupings:
     - create_private_gen2
     - private_gen2_subnet_name
     - private_gen2_subnet_cidr
+  - title: "Tags"
+    variables:
+    - defined_tags
+    - freeform_tags
 
 
 variables:
@@ -100,48 +98,6 @@ variables:
     title: VCN Name
     required: true
     default: TestVCN
-
-  create_internet_gateway:
-    type: boolean
-    title: "Create Internet Gateway"
-    description: "Check it if is necessary create label prefix"
-    required: true
-    default: true
-
-  internet_gateway_display_name:
-    type: string
-    title: Internet Gateway Display Name
-    default: internet-gateway
-    required: false
-    visible: create_internet_gateway
-
-  create_nat_gateway:
-    type: boolean
-    title: "Create NAT Gateway"
-    description: "Check it if is necessary create label prefix"
-    required: true
-    default: true
-
-  nat_gateway_display_name:
-    type: string
-    title: NAT Gateway Display Name
-    default: nat-gateway
-    required: false
-    visible: create_nat_gateway
-
-  create_service_gateway:
-    type: boolean
-    title: "Create Service Gateway"
-    description: "Check it if is necessary create label prefix"
-    required: true
-    default: true
-
-  service_gateway_display_name:
-    type: string
-    title: NAT Gateway Display Name
-    required: false
-    default: service-gateway
-    visible: create_service_gateway
 
   enable_ipv6:
     type: boolean
@@ -331,4 +287,8 @@ variables:
 
   freeform_tags:
     type: map
-    visible: false
+    visible: true
+  
+  defined_tags:
+    type: map
+    visible: true

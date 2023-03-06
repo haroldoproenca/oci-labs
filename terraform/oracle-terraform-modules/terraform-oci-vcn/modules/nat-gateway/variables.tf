@@ -2,14 +2,14 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at http://oss.oracle.com/licenses/upl.
 # 
 
-variable "compartment_ocid" {}
+variable "compartment_id" {}
 variable "vcn_id" {}
 # Internet Gateway
 variable "create_internet_gateway" {
   default     = false
   description = "Create an internet gateway"
 }
-variable "internet_gateway_display_name" {
+variable "display_name" {
   default     = "Internet Gateway"
   description = "Display name for the internet gateway"
 }
@@ -38,7 +38,7 @@ variable "nat_gateway_route_table_id" {
   default     = null
   description = "The OCID of the route table the NAT gateway will use."
 }
-variable "nat_gateway_public_ip_id" {
+variable "public_ip_id" {
   default     = null
   description = "The OCID of the public IP the NAT gateway will use."
 }
@@ -73,9 +73,6 @@ variable "local_peering_gateway_route_table_id" {
   description = "The OCID of the route table the local peering gateway will use."
 }
 # Deployment Details + Freeform Tags + Defined Tags
-variable "gateways_tags" {
-  description = "Tags to be added to the gateway resources"
-}
 
 variable "defined_tags" {
   description = "predefined and scoped to a namespace to tag the resources created using defined tags."

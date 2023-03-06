@@ -3,6 +3,8 @@ variable "compartment_id" {
   type        = string
 }
 
+variable "oci_all_services" {}
+
 variable "cidr_block" {
   description = "Subnets to be created"
   type        = string
@@ -25,7 +27,6 @@ variable "enable_ipv6" {
   default     = false
 }
 
-
 variable "private_subnet" {
   description = "Check if is Private Subnet"
   type        = bool
@@ -38,20 +39,16 @@ variable "vcn_id" {
 
 }
 
-variable "route_table_id" {
-  description = "VCN ID"
-  type        = string
 
-}
-
-
+variable "internet_gateway_id" {}
+variable "nat_gateway_id" {}
+variable "service_gateway_id" {}
 
 variable "defined_tags" {
   description = "predefined and scoped to a namespace to tag the resources created using defined tags."
   type        = map(string)
   default     = null
 }
-
 
 variable "freeform_tags" {
   description = "simple key-value pairs to tag the created resources using freeform OCI Free-form tags."
@@ -60,4 +57,10 @@ variable "freeform_tags" {
     terraformed = "Please do not edit manually"
     module      = "oracle-terraform-modules/vcn/oci"
   }
+}
+
+variable "label_prefix" {
+  description = "a string that will be prepended to all resources"
+  type        = string
+  default     = "none"
 }

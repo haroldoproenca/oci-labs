@@ -3,6 +3,6 @@
 # 
 
 output "internet_gateway_id" {
-  value       = var.create_internet_gateway ? oci_core_internet_gateway.gateway.id : null
+  value       = var.create_internet_gateway ? oci_core_internet_gateway.gateway[0].id : null
   description = "The OCID of the Internet Gateway."
 }

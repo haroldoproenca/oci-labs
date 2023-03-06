@@ -2,7 +2,7 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at http://oss.oracle.com/licenses/upl.
 # 
 
-variable "compartment_ocid" {}
+variable "compartment_id" {}
 variable "vcn_id" {}
 # Internet Gateway
 variable "create_internet_gateway" {
@@ -47,7 +47,7 @@ variable "create_service_gateway" {
   default     = false
   description = "Create a service gateway"
 }
-variable "service_gateway_display_name" {
+variable "display_name" {
   default     = "Service Gateway"
   description = "Display name for the service gateway"
 }
@@ -73,9 +73,6 @@ variable "local_peering_gateway_route_table_id" {
   description = "The OCID of the route table the local peering gateway will use."
 }
 # Deployment Details + Freeform Tags + Defined Tags
-variable "gateways_tags" {
-  description = "Tags to be added to the gateway resources"
-}
 
 variable "defined_tags" {
   description = "predefined and scoped to a namespace to tag the resources created using defined tags."

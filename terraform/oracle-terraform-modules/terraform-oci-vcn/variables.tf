@@ -1,16 +1,9 @@
-# Copyright (c) 2019, 2022 Oracle Corporation and/or affiliates.  All rights reserved.
-# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
-
-# provider identity parameters
-
 variable "region" {
   # List of regions: https://docs.cloud.oracle.com/iaas/Content/General/Concepts/regions.htm#ServiceAvailabilityAcrossRegions
   description = "the OCI region where resources will be created"
   type        = string
   default     = null
 }
-
-# general oci parameters
 
 variable "compartment_id" {
   description = "compartment id where to create all resources"
@@ -31,25 +24,6 @@ variable "defined_tags" {
   description = "predefined and scoped to a namespace to tag the resources created using defined tags."
   type        = map(string)
   default     = null
-}
-
-# vcn parameters
-variable "create_internet_gateway" {
-  description = "whether to create the internet gateway in the vcn. If set to true, creates an Internet Gateway."
-  default     = false
-  type        = bool
-}
-
-variable "create_nat_gateway" {
-  description = "whether to create a nat gateway in the vcn. If set to true, creates a nat gateway."
-  default     = false
-  type        = bool
-}
-
-variable "create_service_gateway" {
-  description = "whether to create a service gateway. If set to true, creates a service gateway."
-  default     = false
-  type        = bool
 }
 
 variable "enable_ipv6" {
@@ -76,12 +50,6 @@ variable "drg_attach_display_name" {
   default     = false
 }
 
-# variable "lockdown_default_seclist" {
-#   description = "whether to remove all default security rules from the VCN Default Security List"
-#   default     = true
-#   type        = bool
-# }
-
 variable "vcn_cidr" {
   description = "The list of IPv4 CIDR blocks the VCN will use."
   default     = "10.0.0.0/16"
@@ -99,11 +67,6 @@ variable "vcn_dns_label" {
   }
 }
 
-# variable "route_table_id" {
-#   description = "a string that will be prepended to all resources"
-#   type        = string
-#   default     = "none"
-# }
 variable "create_label_prefix" {
   description = "whether to create a service gateway. If set to true, creates a service gateway."
   default     = false
@@ -115,6 +78,7 @@ variable "label_prefix" {
   type        = string
   default     = "none"
 }
+
 variable "vcn_name" {
   description = "user-friendly name of to use for the vcn to be appended to the label_prefix"
   type        = string
@@ -257,63 +221,3 @@ variable "private_gen2_subnet_name" {
   default     = false
   type        = string
 }
-# gateways parameters
-variable "internet_gateway_display_name" {
-  description = "(Updatable) Name of Internet Gateway. Does not have to be unique."
-  type        = string
-  default     = "internet-gateway"
-
-  validation {
-    condition     = length(var.internet_gateway_display_name) > 0
-    error_message = "The internet_gateway_display_name value cannot be an empty string."
-  }
-}
-
-variable "nat_gateway_display_name" {
-  description = "(Updatable) Name of NAT Gateway. Does not have to be unique."
-  type        = string
-  default     = "nat-gateway"
-
-  validation {
-    condition     = length(var.nat_gateway_display_name) > 0
-    error_message = "The nat_gateway_display_name value cannot be an empty string."
-  }
-}
-
-variable "service_gateway_display_name" {
-  description = "(Updatable) Name of Service Gateway. Does not have to be unique."
-  type        = string
-  default     = "service-gateway"
-
-  validation {
-    condition     = length(var.service_gateway_display_name) > 0
-    error_message = "The service_gateway_display_name value cannot be an empty string."
-  }
-}
-
-# variable "internet_gateway_route_rules" {
-#   description = "(Updatable) List of routing rules to add to Internet Gateway Route Table"
-#   type        = list(map(string))
-#   default     = null
-# }
-
-# variable "nat_gateway_route_rules" {
-#   description = "(Updatable) list of routing rules to add to NAT Gateway Route Table"
-#   type        = list(map(string))
-#   default     = null
-# }
-
-# variable "internet_gateway_enabled" {
-#   default     = true
-#   description = "Whether the gateway is enabled upon creation."
-# }
-
-# variable "nat_gateway_block_traffic" {
-#   default     = false
-#   description = "Whether the NAT gateway blocks traffic through it."
-# }
-
-# variable "nat_gateway_public_ip_id" {
-#   default     = null
-#   description = "The OCID of the public IP the NAT gateway will use."
-# }

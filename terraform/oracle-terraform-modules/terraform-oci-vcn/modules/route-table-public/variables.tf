@@ -2,7 +2,7 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at http://oss.oracle.com/licenses/upl.
 # 
 
-variable "compartment_ocid" {}
+variable "compartment_id" {}
 variable "vcn_id" {}
 variable "route_table_name" {}
 variable "create_route_table" {
@@ -20,8 +20,9 @@ variable "route_table_tags" {
 }
 
 variable "internet_gateway_id" {
+  type = string
   description = "Tags to be added to the route table resources"
-  type= string
+  default = "empty_internet_gateway_id"
 }
 
 
@@ -41,4 +42,14 @@ variable "freeform_tags" {
     terraformed = "Please do not edit manually"
     module      = "oracle-terraform-modules/vcn/oci"
   }
+}
+
+variable "internet_gateway_display_name" {
+  default     = "Internet Gateway"
+  description = "Display name for the internet gateway"
+}
+
+variable "create_internet_gateway" {
+  default     = false
+  description = "Create an internet gateway"
 }
