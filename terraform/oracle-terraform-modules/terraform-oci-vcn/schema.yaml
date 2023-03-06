@@ -20,14 +20,10 @@ groupings:
   - title: "VCN Settings"
     variables:
     - vcn_cidr
-    - vcn_name
+    - display_name
     - vcn_dns_label
-    - create_label_prefix
-    - label_prefix
+    - env
     - enable_ipv6
-    - create_drg
-    - drg_display_name
-    - drg_attach_display_name
 
   - title: "Subnets"
     variables:
@@ -54,6 +50,7 @@ groupings:
     - create_private_gen2
     - private_gen2_subnet_name
     - private_gen2_subnet_cidr
+
   - title: "Tags"
     variables:
     - defined_tags
@@ -73,19 +70,12 @@ variables:
     description: The target compartment id where to create all resources
     required: true
 
-  create_label_prefix:
-    type: boolean
-    title: "Create Label Prefix"
-    description: "Check it if is necessary create label prefix"
-    required: true
-
-  label_prefix:
+  env:
     type: string
-    title: Label Prefix
+    title: Environment
     description: a string that will be prepended to all resources
     required: false
-    default: null
-    visible: create_label_prefix
+    default: "Test"
 
   vcn_cidr:
     type: string
@@ -93,37 +83,17 @@ variables:
     default: "10.0.0.0/16"
     required: true
 
-  vcn_name:
+  display_name:
     type: string
     title: VCN Name
     required: true
-    default: TestVCN
+    default: Template
 
   enable_ipv6:
     type: boolean
     title: "Enable IPV6"
     description: "Check it if is necessary enable Ipv6"
     required: true
-
-  create_drg:
-    type: boolean
-    title: "Create DRG"
-    description: "Check it if is necessary enable Ipv6"
-    required: true
-
-  drg_display_name:
-    type: string
-    title: DRG Display Name
-    required: false
-    default: drg
-    visible: create_drg
-
-  drg_attach_display_name:
-    type: string
-    title: DRG Attachment Display Name
-    required: false
-    default: drg_attach
-    visible: create_drg
 
   create_public_subnet:
     type: boolean
@@ -142,7 +112,7 @@ variables:
     type: string
     title: Public SubNet Name
     required: false
-    default: "TestPubSN"
+    default: "Pub"
     visible: create_public_subnet
 
   create_private_app:
@@ -162,7 +132,7 @@ variables:
     type: string
     title: Private App SubNet Name
     required: false
-    default: "TestAppSN"
+    default: "App"
     visible: create_private_app
 
   create_private_db:
@@ -182,7 +152,7 @@ variables:
     type: string
     title: Private DB SubNet Name
     required: false
-    default: "TestDBSN"
+    default: "DB"
     visible: create_private_db
 
   create_private_exacs:
@@ -202,7 +172,7 @@ variables:
     type: string
     title: Private ExaCS Client SubNet Name
     required: false
-    default: "TestExaCSCliSN"
+    default: "ExaCSCli"
     visible: create_private_exacs
 
   private_exacs_bkp_subnet_cidr:
@@ -216,7 +186,7 @@ variables:
     type: string
     title: Private ExaCS Backup SubNet Name
     required: false
-    default: "TestExaCSBkpSN"
+    default: "ExaCSBkp"
     visible: create_private_exacs
 
   create_private_oke:
@@ -236,7 +206,7 @@ variables:
     type: string
     title: Private OKE SubNet Name
     required: false
-    default: "TestOKESN"
+    default: "OKE"
     visible: create_private_oke
 
   create_private_gen1:
@@ -256,7 +226,7 @@ variables:
     type: string
     title: Private Generic SubNet Name 1
     required: false
-    default: "TestGen1SN"
+    default: "Gen1"
     visible: create_private_gen1
 
   create_private_gen2:
@@ -276,7 +246,7 @@ variables:
     type: string
     title: Private Generic SubNet Name 2
     required: false
-    default: "TestGen2SN"
+    default: "Gen2"
     visible: create_private_gen2
   
   vcn_dns_label:

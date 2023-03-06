@@ -2,7 +2,7 @@ resource "oci_core_route_table" "route_table_public" {
   count      = var.private_subnet ? 0 : 1
   compartment_id = var.compartment_id
   vcn_id         = var.vcn_id
-  display_name   = var.label_prefix == "none" ? "${var.display_name}-RT" : "${var.label_prefix}-${var.display_name}-RT"
+  display_name   = var.rt_display_name
   freeform_tags  = var.freeform_tags
   defined_tags   = var.defined_tags
 
@@ -18,7 +18,7 @@ resource "oci_core_route_table" "route_table_private" {
   count      = var.private_subnet ? 1 : 0
   compartment_id = var.compartment_id
   vcn_id         = var.vcn_id
-  display_name   = var.label_prefix == "none" ? "${var.display_name}-RT" : "${var.label_prefix}-${var.display_name}-RT"
+  display_name   = var.rt_display_name
   freeform_tags  = var.freeform_tags
   defined_tags   = var.defined_tags
 
@@ -31,7 +31,7 @@ resource "oci_core_route_table" "route_table_private" {
 
       route_rules {
       description       = "Traffic to OCI services"
-      destination       = var.oci_all_services
+      destination       = lookup(data.oci_core_services.all_services.services[0], "cidr_block")
       destination_type  = "SERVICE_CIDR_BLOCK"
       network_entity_id = var.service_gateway_id
     }
@@ -39,7 +39,7 @@ resource "oci_core_route_table" "route_table_private" {
 
 resource "oci_core_security_list" "security_list_template" {
   compartment_id = var.compartment_id
-  display_name   = var.label_prefix == "none" ? "${var.display_name}-SL" : "${var.label_prefix}-${var.display_name}-SL"
+  display_name   = var.sl_display_name
   vcn_id         = var.vcn_id
   freeform_tags  = var.freeform_tags
   defined_tags   = var.defined_tags
@@ -74,7 +74,7 @@ resource "oci_core_subnet" "subnet_template" {
   vcn_id         = var.vcn_id
 
   defined_tags = var.defined_tags
-  display_name = var.display_name
+  display_name = var.sn_display_name
   freeform_tags = var.freeform_tags
   prohibit_public_ip_on_vnic = var.private_subnet
   route_table_id = var.private_subnet ? oci_core_route_table.route_table_private[0].id : oci_core_route_table.route_table_public[0].id

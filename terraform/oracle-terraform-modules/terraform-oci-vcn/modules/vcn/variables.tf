@@ -15,12 +15,12 @@ variable "vcn_cidr" {
 }
 
 variable "display_name" {
-  default     = "Dev VCN 1"
+  default     = "Template"
   description = "Display name for the Virtual Cloud Network (VCN)."
 }
 
 variable "dns_label" {
-  default     = "vcn1"
+  default     = "templatetest"
   description = "DNS Label for Virtual Cloud Network (VCN)."
 }
 

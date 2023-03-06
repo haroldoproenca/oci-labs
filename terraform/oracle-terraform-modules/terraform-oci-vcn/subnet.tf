@@ -4,7 +4,9 @@ module "public_subnet" {
   depends_on = [ module.vcn]
 
   compartment_id    = var.compartment_id
-  display_name   = var.label_prefix == "none" ? var.public_subnet_name : "${var.label_prefix}-${var.public_subnet_name}"
+  sn_display_name   = "${var.display_name}-${var.public_subnet_name}-${var.env}-SN"
+  rt_display_name   = "${var.display_name}-${var.public_subnet_name}-${var.env}-RT"
+  sl_display_name   = "${var.display_name}-${var.public_subnet_name}-${var.env}-SL" 
   cidr_block        = var.public_subnet_cidr
   enable_ipv6       = var.enable_ipv6
   vcn_id            = module.vcn.vcn_id
@@ -13,12 +15,9 @@ module "public_subnet" {
   internet_gateway_id=module.vcn.internet_gateway_id
   nat_gateway_id=module.vcn.nat_gateway_id
   service_gateway_id=module.vcn.service_gateway_id
-  oci_all_services = lookup(data.oci_core_services.all_services.services[0], "cidr_block")
 
   freeform_tags = var.freeform_tags
 }
-
-
 
 module "private_app" {
   count      = var.create_private_app ? 1 : 0
@@ -26,7 +25,9 @@ module "private_app" {
   depends_on = [ module.vcn]
 
   compartment_id    = var.compartment_id
-  display_name   = var.label_prefix == "none" ? var.private_app_subnet_name : "${var.label_prefix}-${var.private_app_subnet_name}"
+  sn_display_name   = "${var.display_name}-${var.private_app_subnet_name}-${var.env}-SN"
+  rt_display_name   = "${var.display_name}-${var.private_app_subnet_name}-${var.env}-RT"
+  sl_display_name   = "${var.display_name}-${var.private_app_subnet_name}-${var.env}-SL" 
   cidr_block        = var.private_app_subnet_cidr
   enable_ipv6       = var.enable_ipv6
   vcn_id            = module.vcn.vcn_id
@@ -35,7 +36,6 @@ module "private_app" {
   internet_gateway_id=module.vcn.internet_gateway_id
   nat_gateway_id=module.vcn.nat_gateway_id
   service_gateway_id=module.vcn.service_gateway_id
-  oci_all_services = lookup(data.oci_core_services.all_services.services[0], "cidr_block")
 
   freeform_tags = var.freeform_tags
 }
@@ -46,7 +46,9 @@ module "private_db" {
   depends_on = [ module.vcn]
 
   compartment_id    = var.compartment_id
-  display_name   = var.label_prefix == "none" ? var.private_db_subnet_name : "${var.label_prefix}-${var.private_db_subnet_name}"
+  sn_display_name   = "${var.display_name}-${var.private_db_subnet_name}-${var.env}-SN"
+  rt_display_name   = "${var.display_name}-${var.private_db_subnet_name}-${var.env}-RT"
+  sl_display_name   = "${var.display_name}-${var.private_db_subnet_name}-${var.env}-SL" 
   cidr_block        = var.private_db_subnet_cidr
   enable_ipv6       = var.enable_ipv6
   vcn_id            = module.vcn.vcn_id
@@ -55,7 +57,6 @@ module "private_db" {
   internet_gateway_id=module.vcn.internet_gateway_id
   nat_gateway_id=module.vcn.nat_gateway_id
   service_gateway_id=module.vcn.service_gateway_id
-  oci_all_services = lookup(data.oci_core_services.all_services.services[0], "cidr_block")
 
   freeform_tags = var.freeform_tags
 }
@@ -66,7 +67,9 @@ module "private_exacs_client" {
   depends_on = [ module.vcn]
 
   compartment_id    = var.compartment_id
-  display_name   = var.label_prefix == "none" ? var.private_exacs_client_subnet_name : "${var.label_prefix}-${var.private_exacs_client_subnet_name}"
+  sn_display_name   = "${var.display_name}-${var.private_exacs_client_subnet_name}-${var.env}-SN"
+  rt_display_name   = "${var.display_name}-${var.private_exacs_client_subnet_name}-${var.env}-RT"
+  sl_display_name   = "${var.display_name}-${var.private_exacs_client_subnet_name}-${var.env}-SL" 
   cidr_block        = var.private_exacs_client_subnet_cidr
   enable_ipv6       = var.enable_ipv6
   vcn_id            = module.vcn.vcn_id
@@ -75,7 +78,6 @@ module "private_exacs_client" {
   internet_gateway_id=module.vcn.internet_gateway_id
   nat_gateway_id=module.vcn.nat_gateway_id
   service_gateway_id=module.vcn.service_gateway_id
-  oci_all_services = lookup(data.oci_core_services.all_services.services[0], "cidr_block")
 
   freeform_tags = var.freeform_tags
 }
@@ -86,7 +88,9 @@ module "private_exacs_bkp" {
   depends_on = [ module.vcn]
 
   compartment_id    = var.compartment_id
-  display_name   = var.label_prefix == "none" ? var.private_exacs_bkp_subnet_name : "${var.label_prefix}-${var.private_exacs_bkp_subnet_name}"
+  sn_display_name   = "${var.display_name}-${var.private_exacs_bkp_subnet_name}-${var.env}-SN"
+  rt_display_name   = "${var.display_name}-${var.private_exacs_bkp_subnet_name}-${var.env}-RT"
+  sl_display_name   = "${var.display_name}-${var.private_exacs_bkp_subnet_name}-${var.env}-SL" 
   cidr_block        = var.private_exacs_bkp_subnet_cidr
   enable_ipv6       = var.enable_ipv6
   vcn_id            = module.vcn.vcn_id
@@ -95,7 +99,6 @@ module "private_exacs_bkp" {
   internet_gateway_id=module.vcn.internet_gateway_id
   nat_gateway_id=module.vcn.nat_gateway_id
   service_gateway_id=module.vcn.service_gateway_id
-  oci_all_services = lookup(data.oci_core_services.all_services.services[0], "cidr_block")
 
   freeform_tags = var.freeform_tags
 }
@@ -106,7 +109,9 @@ module "private_oke" {
   depends_on = [ module.vcn]
 
   compartment_id    = var.compartment_id
-  display_name   = var.label_prefix == "none" ? var.private_oke_subnet_name : "${var.label_prefix}-${var.private_oke_subnet_name}"
+  sn_display_name   = "${var.display_name}-${var.private_oke_subnet_name}-${var.env}-SN"
+  rt_display_name   = "${var.display_name}-${var.private_oke_subnet_name}-${var.env}-RT"
+  sl_display_name   = "${var.display_name}-${var.private_oke_subnet_name}-${var.env}-SL" 
   cidr_block        = var.private_oke_subnet_cidr
   enable_ipv6       = var.enable_ipv6
   vcn_id            = module.vcn.vcn_id
@@ -115,7 +120,6 @@ module "private_oke" {
   internet_gateway_id=module.vcn.internet_gateway_id
   nat_gateway_id=module.vcn.nat_gateway_id
   service_gateway_id=module.vcn.service_gateway_id
-  oci_all_services = lookup(data.oci_core_services.all_services.services[0], "cidr_block")
 
   freeform_tags = var.freeform_tags
 }
@@ -126,7 +130,9 @@ module "private_gen1" {
   depends_on = [ module.vcn]
 
   compartment_id    = var.compartment_id
-  display_name   = var.label_prefix == "none" ? var.private_gen1_subnet_name : "${var.label_prefix}-${var.private_gen1_subnet_name}"
+  sn_display_name   = "${var.display_name}-${var.private_gen1_subnet_name}-${var.env}-SN"
+  rt_display_name   = "${var.display_name}-${var.private_gen1_subnet_name}-${var.env}-RT"
+  sl_display_name   = "${var.display_name}-${var.private_gen1_subnet_name}-${var.env}-SL" 
   cidr_block        = var.private_gen1_subnet_cidr
   enable_ipv6       = var.enable_ipv6
   vcn_id            = module.vcn.vcn_id
@@ -135,7 +141,6 @@ module "private_gen1" {
   internet_gateway_id=module.vcn.internet_gateway_id
   nat_gateway_id=module.vcn.nat_gateway_id
   service_gateway_id=module.vcn.service_gateway_id
-  oci_all_services = lookup(data.oci_core_services.all_services.services[0], "cidr_block")
 
   freeform_tags = var.freeform_tags
 }
@@ -146,7 +151,9 @@ module "private_gen2" {
   depends_on = [ module.vcn]
 
   compartment_id    = var.compartment_id
-  display_name   = var.label_prefix == "none" ? var.private_gen2_subnet_name : "${var.label_prefix}-${var.private_gen2_subnet_name}"
+  sn_display_name   = "${var.display_name}-${var.private_gen2_subnet_name}-${var.env}-SN"
+  rt_display_name   = "${var.display_name}-${var.private_gen2_subnet_name}-${var.env}-RT"
+  sl_display_name   = "${var.display_name}-${var.private_gen2_subnet_name}-${var.env}-SL" 
   cidr_block        = var.private_gen2_subnet_cidr
   enable_ipv6       = var.enable_ipv6
   vcn_id            = module.vcn.vcn_id
@@ -155,7 +162,6 @@ module "private_gen2" {
   internet_gateway_id=module.vcn.internet_gateway_id
   nat_gateway_id=module.vcn.nat_gateway_id
   service_gateway_id=module.vcn.service_gateway_id
-  oci_all_services = lookup(data.oci_core_services.all_services.services[0], "cidr_block")
 
   freeform_tags = var.freeform_tags
 }

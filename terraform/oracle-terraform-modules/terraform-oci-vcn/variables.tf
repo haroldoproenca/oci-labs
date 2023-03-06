@@ -11,6 +11,13 @@ variable "compartment_id" {
   # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc
 }
 
+variable "env" {
+  description = "compartment id where to create all resources"
+  type        = string
+  default= "Test"
+  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc
+}
+
 variable "freeform_tags" {
   description = "simple key-value pairs to tag the created resources using freeform OCI Free-form tags."
   type        = map(any)
@@ -32,24 +39,6 @@ variable "enable_ipv6" {
   default     = false
 }
 
-variable "create_drg" {
-  description = "Whether IPv6 is enabled for the VCN. If enabled, Oracle will assign the VCN a IPv6 /56 CIDR block."
-  type        = bool
-  default     = false
-}
-
-variable "drg_display_name" {
-  description = "Whether IPv6 is enabled for the VCN. If enabled, Oracle will assign the VCN a IPv6 /56 CIDR block."
-  type        = string
-  default     = false
-}
-
-variable "drg_attach_display_name" {
-  description = "Whether IPv6 is enabled for the VCN. If enabled, Oracle will assign the VCN a IPv6 /56 CIDR block."
-  type        = string
-  default     = false
-}
-
 variable "vcn_cidr" {
   description = "The list of IPv4 CIDR blocks the VCN will use."
   default     = "10.0.0.0/16"
@@ -59,7 +48,7 @@ variable "vcn_cidr" {
 variable "vcn_dns_label" {
   description = "A DNS label for the VCN, used in conjunction with the VNIC's hostname and subnet's DNS label to form a fully qualified domain name (FQDN) for each VNIC within this subnet. DNS resolution of hostnames in the VCN is disabled when null."
   type        = string
-  default     = "vcnmodule"
+  default     = "templatetest"
 
   validation {
     condition     = var.vcn_dns_label == null ? true : length(regexall("^[^0-9][a-zA-Z0-9_]{1,14}$", var.vcn_dns_label)) > 0
@@ -67,24 +56,13 @@ variable "vcn_dns_label" {
   }
 }
 
-variable "create_label_prefix" {
-  description = "whether to create a service gateway. If set to true, creates a service gateway."
-  default     = false
-  type        = bool
-}
 
-variable "label_prefix" {
-  description = "a string that will be prepended to all resources"
-  type        = string
-  default     = "none"
-}
-
-variable "vcn_name" {
+variable "display_name" {
   description = "user-friendly name of to use for the vcn to be appended to the label_prefix"
   type        = string
-  default     = "vcn"
+  default     = "Template"
   validation {
-    condition     = length(var.vcn_name) > 0
+    condition     = length(var.display_name) > 0
     error_message = "The vcn_name value cannot be an empty string."
   }
 }
