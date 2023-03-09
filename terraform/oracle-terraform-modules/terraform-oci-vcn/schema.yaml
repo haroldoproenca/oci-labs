@@ -21,7 +21,6 @@ groupings:
     variables:
     - vcn_cidr
     - display_name
-    - vcn_dns_label
     - env
     - enable_ipv6
 
@@ -112,18 +111,18 @@ variables:
     type: string
     title: Public SubNet Name
     required: false
-    default: "Pub"
-    visible: create_public_subnet
+    default: "PUB"
+    visible: false
 
   create_private_app:
     type: boolean
-    title: "Create Private App SubNet"
+    title: "Create Private  SubNet"
     description: "Check it if is necessary create private app subnet"
     required: true
 
   private_app_subnet_cidr:
     type: string
-    title: Private App SubNet CIDR
+    title: Private  SubNet CIDR
     required: false
     default: "10.0.1.0/24"
     visible: create_private_app
@@ -132,8 +131,8 @@ variables:
     type: string
     title: Private App SubNet Name
     required: false
-    default: "App"
-    visible: create_private_app
+    default: "APP"
+    visible: false
 
   create_private_db:
     type: boolean
@@ -153,7 +152,7 @@ variables:
     title: Private DB SubNet Name
     required: false
     default: "DB"
-    visible: create_private_db
+    visible: false
 
   create_private_exacs:
     type: boolean
@@ -172,8 +171,8 @@ variables:
     type: string
     title: Private ExaCS Client SubNet Name
     required: false
-    default: "ExaCSCli"
-    visible: create_private_exacs
+    default: "EXACSCLI"
+    visible: false
 
   private_exacs_bkp_subnet_cidr:
     type: string
@@ -186,8 +185,8 @@ variables:
     type: string
     title: Private ExaCS Backup SubNet Name
     required: false
-    default: "ExaCSBkp"
-    visible: create_private_exacs
+    default: "EXACSBKP"
+    visible: false
 
   create_private_oke:
     type: boolean
@@ -207,7 +206,7 @@ variables:
     title: Private OKE SubNet Name
     required: false
     default: "OKE"
-    visible: create_private_oke
+    visible: false
 
   create_private_gen1:
     type: boolean
@@ -226,7 +225,7 @@ variables:
     type: string
     title: Private Generic SubNet Name 1
     required: false
-    default: "Gen1"
+    default: "GEN1"
     visible: create_private_gen1
 
   create_private_gen2:
@@ -246,14 +245,8 @@ variables:
     type: string
     title: Private Generic SubNet Name 2
     required: false
-    default: "Gen2"
+    default: "GEN2"
     visible: create_private_gen2
-  
-  vcn_dns_label:
-    title: VCN DNS Label
-    type: string
-    required: false
-    default: templatevcn
 
   freeform_tags:
     type: map

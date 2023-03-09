@@ -45,18 +45,6 @@ variable "vcn_cidr" {
   type        = string
 }
 
-variable "vcn_dns_label" {
-  description = "A DNS label for the VCN, used in conjunction with the VNIC's hostname and subnet's DNS label to form a fully qualified domain name (FQDN) for each VNIC within this subnet. DNS resolution of hostnames in the VCN is disabled when null."
-  type        = string
-  default     = "templatetest"
-
-  validation {
-    condition     = var.vcn_dns_label == null ? true : length(regexall("^[^0-9][a-zA-Z0-9_]{1,14}$", var.vcn_dns_label)) > 0
-    error_message = "DNS label must be unset to disable, or an alphanumeric string with length of 1 through 15 that begins with a letter."
-  }
-}
-
-
 variable "display_name" {
   description = "user-friendly name of to use for the vcn to be appended to the label_prefix"
   type        = string
@@ -81,7 +69,7 @@ variable "public_subnet_cidr" {
 
 variable "public_subnet_name" {
   description = "Name Subnet"
-  default     = false
+  default     = "PUB"
   type        = string
 }
 
@@ -99,7 +87,7 @@ variable "private_app_subnet_cidr" {
 
 variable "private_app_subnet_name" {
   description = "Name Subnet"
-  default     = false
+  default     = "APP"
   type        = string
 }
 variable "create_private_db" {
@@ -115,7 +103,7 @@ variable "private_db_subnet_cidr" {
 
 variable "private_db_subnet_name" {
   description = "Name Subnet"
-  default     = false
+  default     = "DB"
   type        = string
 }
 variable "create_private_exacs" {
@@ -132,7 +120,7 @@ variable "private_exacs_client_subnet_cidr" {
 
 variable "private_exacs_client_subnet_name" {
   description = "Name Subnet"
-  default     = false
+  default     = "EXACSCLI"
   type        = string
 }
 
@@ -144,7 +132,7 @@ variable "private_exacs_bkp_subnet_cidr" {
 
 variable "private_exacs_bkp_subnet_name" {
   description = "Name Subnet"
-  default     = false
+  default     = "EXACSBKP"
   type        = string
 }
 
@@ -162,7 +150,7 @@ variable "private_oke_subnet_cidr" {
 
 variable "private_oke_subnet_name" {
   description = "Name Subnet"
-  default     = false
+  default     = "OKE"
   type        = string
 }
 variable "create_private_gen1" {
@@ -179,7 +167,7 @@ variable "private_gen1_subnet_cidr" {
 
 variable "private_gen1_subnet_name" {
   description = "Name Subnet"
-  default     = false
+  default     = "GEN1"
   type        = string
 }
 variable "create_private_gen2" {
@@ -196,6 +184,6 @@ variable "private_gen2_subnet_cidr" {
 
 variable "private_gen2_subnet_name" {
   description = "Name Subnet"
-  default     = false
+  default     = "GEN2"
   type        = string
 }

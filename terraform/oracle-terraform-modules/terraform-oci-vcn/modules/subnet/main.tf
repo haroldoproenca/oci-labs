@@ -72,7 +72,7 @@ resource "oci_core_subnet" "subnet_template" {
   cidr_block     = var.cidr_block
   compartment_id = var.compartment_id
   vcn_id         = var.vcn_id
-
+  dns_label = replace(var.sn_display_name,"-","")
   defined_tags = var.defined_tags
   display_name = var.sn_display_name
   freeform_tags = var.freeform_tags

@@ -20,8 +20,8 @@ variable "display_name" {
 }
 
 variable "dns_label" {
-  default     = "templatetest"
-  description = "DNS Label for Virtual Cloud Network (VCN)."
+  default     = "template"
+  description = "Display name for the Virtual Cloud Network (VCN)."
 }
 
 variable "enable_ipv6" {

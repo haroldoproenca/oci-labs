@@ -4,9 +4,9 @@ module "public_subnet" {
   depends_on = [ module.vcn]
 
   compartment_id    = var.compartment_id
-  sn_display_name   = "${var.display_name}-${var.public_subnet_name}-${var.env}-SN"
-  rt_display_name   = "${var.display_name}-${var.public_subnet_name}-${var.env}-RT"
-  sl_display_name   = "${var.display_name}-${var.public_subnet_name}-${var.env}-SL" 
+  sn_display_name   = "${var.public_subnet_name}-SN"
+  rt_display_name   = "${var.public_subnet_name}-RT"
+  sl_display_name   = "${var.public_subnet_name}-SL" 
   cidr_block        = var.public_subnet_cidr
   enable_ipv6       = var.enable_ipv6
   vcn_id            = module.vcn.vcn_id
@@ -25,9 +25,9 @@ module "private_app" {
   depends_on = [ module.vcn]
 
   compartment_id    = var.compartment_id
-  sn_display_name   = "${var.display_name}-${var.private_app_subnet_name}-${var.env}-SN"
-  rt_display_name   = "${var.display_name}-${var.private_app_subnet_name}-${var.env}-RT"
-  sl_display_name   = "${var.display_name}-${var.private_app_subnet_name}-${var.env}-SL" 
+  sn_display_name   = "${var.private_app_subnet_name}-SN"
+  rt_display_name   = "${var.private_app_subnet_name}-RT"
+  sl_display_name   = "${var.private_app_subnet_name}-SL" 
   cidr_block        = var.private_app_subnet_cidr
   enable_ipv6       = var.enable_ipv6
   vcn_id            = module.vcn.vcn_id
@@ -46,9 +46,9 @@ module "private_db" {
   depends_on = [ module.vcn]
 
   compartment_id    = var.compartment_id
-  sn_display_name   = "${var.display_name}-${var.private_db_subnet_name}-${var.env}-SN"
-  rt_display_name   = "${var.display_name}-${var.private_db_subnet_name}-${var.env}-RT"
-  sl_display_name   = "${var.display_name}-${var.private_db_subnet_name}-${var.env}-SL" 
+  sn_display_name   = "${var.private_db_subnet_name}-SN"
+  rt_display_name   = "${var.private_db_subnet_name}-RT"
+  sl_display_name   = "${var.private_db_subnet_name}-SL" 
   cidr_block        = var.private_db_subnet_cidr
   enable_ipv6       = var.enable_ipv6
   vcn_id            = module.vcn.vcn_id
@@ -67,9 +67,9 @@ module "private_exacs_client" {
   depends_on = [ module.vcn]
 
   compartment_id    = var.compartment_id
-  sn_display_name   = "${var.display_name}-${var.private_exacs_client_subnet_name}-${var.env}-SN"
-  rt_display_name   = "${var.display_name}-${var.private_exacs_client_subnet_name}-${var.env}-RT"
-  sl_display_name   = "${var.display_name}-${var.private_exacs_client_subnet_name}-${var.env}-SL" 
+  sn_display_name   = "${var.private_exacs_client_subnet_name}-SN"
+  rt_display_name   = "${var.private_exacs_client_subnet_name}-RT"
+  sl_display_name   = "${var.private_exacs_client_subnet_name}-SL" 
   cidr_block        = var.private_exacs_client_subnet_cidr
   enable_ipv6       = var.enable_ipv6
   vcn_id            = module.vcn.vcn_id
@@ -88,9 +88,9 @@ module "private_exacs_bkp" {
   depends_on = [ module.vcn]
 
   compartment_id    = var.compartment_id
-  sn_display_name   = "${var.display_name}-${var.private_exacs_bkp_subnet_name}-${var.env}-SN"
-  rt_display_name   = "${var.display_name}-${var.private_exacs_bkp_subnet_name}-${var.env}-RT"
-  sl_display_name   = "${var.display_name}-${var.private_exacs_bkp_subnet_name}-${var.env}-SL" 
+  sn_display_name   = "${var.private_exacs_bkp_subnet_name}-SN"
+  rt_display_name   = "${var.private_exacs_bkp_subnet_name}-RT"
+  sl_display_name   = "${var.private_exacs_bkp_subnet_name}-SL" 
   cidr_block        = var.private_exacs_bkp_subnet_cidr
   enable_ipv6       = var.enable_ipv6
   vcn_id            = module.vcn.vcn_id
@@ -109,9 +109,9 @@ module "private_oke" {
   depends_on = [ module.vcn]
 
   compartment_id    = var.compartment_id
-  sn_display_name   = "${var.display_name}-${var.private_oke_subnet_name}-${var.env}-SN"
-  rt_display_name   = "${var.display_name}-${var.private_oke_subnet_name}-${var.env}-RT"
-  sl_display_name   = "${var.display_name}-${var.private_oke_subnet_name}-${var.env}-SL" 
+  sn_display_name   = "${var.private_oke_subnet_name}-SN"
+  rt_display_name   = "${var.private_oke_subnet_name}-RT"
+  sl_display_name   = "${var.private_oke_subnet_name}-SL"
   cidr_block        = var.private_oke_subnet_cidr
   enable_ipv6       = var.enable_ipv6
   vcn_id            = module.vcn.vcn_id
@@ -130,9 +130,9 @@ module "private_gen1" {
   depends_on = [ module.vcn]
 
   compartment_id    = var.compartment_id
-  sn_display_name   = "${var.display_name}-${var.private_gen1_subnet_name}-${var.env}-SN"
-  rt_display_name   = "${var.display_name}-${var.private_gen1_subnet_name}-${var.env}-RT"
-  sl_display_name   = "${var.display_name}-${var.private_gen1_subnet_name}-${var.env}-SL" 
+  sn_display_name   = "${var.private_gen1_subnet_name}-SN"
+  rt_display_name   = "${var.private_gen1_subnet_name}-RT"
+  sl_display_name   = "${var.private_gen1_subnet_name}-SL" 
   cidr_block        = var.private_gen1_subnet_cidr
   enable_ipv6       = var.enable_ipv6
   vcn_id            = module.vcn.vcn_id
@@ -151,9 +151,9 @@ module "private_gen2" {
   depends_on = [ module.vcn]
 
   compartment_id    = var.compartment_id
-  sn_display_name   = "${var.display_name}-${var.private_gen2_subnet_name}-${var.env}-SN"
-  rt_display_name   = "${var.display_name}-${var.private_gen2_subnet_name}-${var.env}-RT"
-  sl_display_name   = "${var.display_name}-${var.private_gen2_subnet_name}-${var.env}-SL" 
+  sn_display_name   = "${var.private_gen2_subnet_name}-SN"
+  rt_display_name   = "${var.private_gen2_subnet_name}-RT"
+  sl_display_name   = "${var.private_gen2_subnet_name}-SL" 
   cidr_block        = var.private_gen2_subnet_cidr
   enable_ipv6       = var.enable_ipv6
   vcn_id            = module.vcn.vcn_id
