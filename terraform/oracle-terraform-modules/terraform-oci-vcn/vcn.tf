@@ -1,14 +1,15 @@
-resource "oci_core_vcn" "vcn" {
-  cidr_block     = var.vcn_cidr
+module "vcn" {
+  source     = "./modules/vcn"
+  vcn_cidr     = var.vcn_cidr
   compartment_id = var.compartment_id
-  display_name   = var.label_prefix == "none" ? var.vcn_name : "${var.label_prefix}-${var.vcn_name}"
-  dns_label      = var.vcn_dns_label
-  is_ipv6enabled = var.enable_ipv6
+  display_name   = "${var.display_name}-${var.env}-VCN"
+  dns_label      = "${var.display_name}${var.env}"
+  enable_ipv6 = var.enable_ipv6
 
+  internet_gateway_display_name = "${var.display_name}-${var.env}-IGW"
+  nat_gateway_display_name = "${var.display_name}-${var.env}-NATGW"
+  service_gateway_display_name = "${var.display_name}-${var.env}-SVCGW"
+  
   freeform_tags = var.freeform_tags
   defined_tags  = var.defined_tags
-
-  lifecycle {
-    ignore_changes = [defined_tags, dns_label, freeform_tags]
-  }
 }
